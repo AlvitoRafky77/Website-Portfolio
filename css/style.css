@@ -82,6 +82,14 @@ section {
     color: var(--bg-color);
 }
 
+.btn i {
+    margin-left: 0rem;
+    vertical-align: middle;
+    font-size: 1.2em;
+    display: inline-block;
+    transition: transform 0.2s;
+}
+
 /* ============================================= */
 /* HEADER
 /* ============================================= */
@@ -258,6 +266,13 @@ section {
 .service-card p {
     font-size: 1.4rem;
     color: var(--light-text-color);
+}
+
+.about-text .btn {
+    margin-right: 1.2rem;
+}
+.about-text .btn:last-child {
+    margin-right: 0;
 }
 
 /* ============================================= */

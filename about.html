@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me | ARS Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+        .about-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12rem 2rem 4rem 2rem;
+            display: flex;
+            gap: 5rem;
+            align-items: flex-start;
+        }
+        .about-avatar {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .about-avatar img {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--main-color);
+            box-shadow: 0 0 0 8px var(--second-bg-color), 0 8px 32px 0 rgba(56,189,248,0.15);
+            background: #fff;
+        }
+        .about-avatar .avatar-name {
+            margin-top: 2rem;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--main-color);
+        }
+        .about-content {
+            flex: 2;
+        }
+        .about-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--main-color);
+        }
+        .about-content h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+        }
+        .about-summary {
+            font-size: 1.6rem;
+            color: var(--light-text-color);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+        .about-info-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem 3rem;
+            margin-bottom: 3rem;
+        }
+        .about-info-list .info-item {
+            font-size: 1.5rem;
+            color: var(--text-color);
+        }
+        .about-info-list .info-label {
+            font-weight: 600;
+            color: var(--main-color);
+            margin-right: .5rem;
+        }
+        .about-skills {
+            margin-bottom: 3rem;
+        }
+        .about-skills h3 {
+            font-size: 2rem;
+            color: var(--main-color);
+            margin-bottom: 1.5rem;
+        }
+        .skill-bar {
+            margin-bottom: 1.2rem;
+        }
+        .skill-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: .3rem;
+        }
+        .skill-bar-bg {
+            background: var(--second-bg-color);
+            border-radius: 1rem;
+            height: 1.2rem;
+            width: 100%;
+            overflow: hidden;
+        }
+        .skill-bar-fill {
+            height: 100%;
+            border-radius: 1rem;
+            background: linear-gradient(90deg, var(--main-color), var(--accent-color));
+            transition: width 1s;
+        }
+        .about-education {
+            margin-bottom: 3rem;
+        }
+        .about-education h3 {
+            font-size: 2rem;
+            color: var(--main-color);
+            margin-bottom: 1.5rem;
+        }
+        .edu-item {
+            margin-bottom: 1.2rem;
+        }
+        .edu-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+        .edu-school {
+            font-size: 1.3rem;
+            color: var(--light-text-color);
+        }
+        .btn-hire {
+            margin-top: 2.5rem;
+            padding: 1.2rem 3rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: var(--main-color);
+            color: var(--bg-color);
+            border: .2rem solid var(--main-color);
+            border-radius: .6rem;
+            box-shadow: 0 2px 12px 0 rgba(56,189,248,0.15), 0 0 0 3px var(--accent-color);
+            transition: .3s;
+        }
+        .btn-hire:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            border-color: var(--accent-color);
+        }
+        @media (max-width: 991px) {
+            .about-main {
+                flex-direction: column;
+                align-items: center;
+                gap: 3rem;
+            }
+            .about-content {
+                width: 100%;
+            }
+            .about-info-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo"><img src="assets/images/Logo.png" alt="Logo"></a>
+        <nav class="navbar">
+            <a href="index.html">Home</a>
+            <a href="about.html" class="active">About</a>
+            <a href="index.html#portfolio">Portfolio</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+        <a href="index.html#contact" class="btn">Hire Me</a>
+        <i class='bx bx-menu' id="menu-icon"></i>
+    </header>
+    <main>
+        <section class="about-main">
+            <div class="about-avatar">
+                <img src="assets/images/hero-placeholder.png" alt="Alvito Rafky Sumeri">
+                <div class="avatar-name">Alvito Rafky Sumeri</div>
+            </div>
+            <div class="about-content">
+                <h1>About Me</h1>
+                <h2>I build software that solve user problems</h2>
+                <div class="about-summary">
+                    Saya adalah mahasiswa aktif semester 6 di Telkom University, Jakarta Campus, jurusan Sistem Informasi. Saya memiliki minat yang kuat dalam pengembangan aplikasi berbasis web dan desain antarmuka pengguna yang modern. Selama perjalanan akademik dan proyek pribadi saya, saya telah mengerjakan berbagai aplikasi dan website yang tidak hanya fungsional, tetapi juga dirancang dengan memperhatikan pengalaman pengguna.<br><br>
+                    Saya percaya bahwa teknologi bukan sekadar alat, melainkan sarana untuk menciptakan solusi yang berdampak dan inklusif. Dengan kombinasi kemampuan teknis di bidang pemrograman dan sensitivitas terhadap desain UI/UX, saya terus berupaya menciptakan produk digital yang efektif dan estetis.<br><br>
+                    Saya aktif mengembangkan portofolio melalui berbagai proyek seperti website edukasi kesehatan, sistem marketplace terintegrasi API, serta mockup desain antarmuka berbasis Figma. Semangat belajar, keingintahuan tinggi, dan kemauan untuk terus berkembang adalah nilai yang saya pegang dalam setiap karya yang saya bangun.
+                </div>
+                <div class="about-info-list">
+                    <div class="info-item"><span class="info-label">Lokasi:</span> Jakarta, Indonesia</div>
+                    <div class="info-item"><span class="info-label">Email:</span> alvitorafky44@gmail.com</div>
+                    <div class="info-item"><span class="info-label">Pendidikan:</span> S1 Sistem Informasi, Telkom University</div>
+                    <div class="info-item"><span class="info-label">Minat:</span> Web Development, UI/UX, Startup, Teknologi, Figma</div>
+                </div>
+                <div class="about-skills">
+                    <h3>Skills</h3>
+                    <div class="skill-bar">
+                        <div class="skill-title">HTML</div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:95%"></div></div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-title">CSS</div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:90%"></div></div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-title">JavaScript</div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:80%"></div></div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-title">Laravel</div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:75%"></div></div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-title">Figma</div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:85%"></div></div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-title">WordPress</div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:70%"></div></div>
+                    </div>
+                </div>
+                <div class="about-education">
+                    <h3>Education</h3>
+                    <div class="edu-item">
+                        <div class="edu-title">S1 Sistem Informasi (2022 - sekarang)</div>
+                        <div class="edu-school">Telkom University, Jakarta</div>
+                    </div>
+                    <div class="edu-item">
+                        <div class="edu-title">SMA IPA (2019 - 2022)</div>
+                        <div class="edu-school">SMA Negeri 22 Jakarta</div>
+                    </div>
+                </div>
+                <a href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=alvitorafky44@gmail.com" class="btn-hire">Hire Me</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html> 
