@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare+ | Portfolio Detail</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { background: var(--bg-color); color: var(--text-color); }
+        .portfolio-detail-main { max-width: 1100px; margin: 0 auto; padding: 10rem 2rem 4rem 2rem; }
+        .breadcrumb { font-size: 1.3rem; color: var(--light-text-color); margin-bottom: 2rem; }
+        .breadcrumb a { color: var(--main-color); text-decoration: none; }
+        .portfolio-title { font-size: 3.2rem; font-weight: 800; color: var(--main-color); margin-bottom: 2rem; text-align: center; }
+        .portfolio-img-main { width: 100%; max-width: 700px; margin: 0 auto 3rem auto; display: block; border-radius: 1.2rem; box-shadow: 0 4px 32px 0 rgba(56,189,248,0.10); background: var(--second-bg-color); }
+        .portfolio-info-box { background: var(--second-bg-color); border-radius: 1rem; padding: 2rem 2.5rem; margin-bottom: 3rem; display: flex; gap: 3rem; flex-wrap: wrap; }
+        .portfolio-info-item { flex: 1 1 180px; margin-bottom: 1rem; }
+        .portfolio-info-label { color: var(--main-color); font-weight: 600; font-size: 1.2rem; }
+        .portfolio-info-value { color: var(--text-color); font-size: 1.5rem; font-weight: 500; }
+        .portfolio-section { margin-bottom: 2.5rem; }
+        .portfolio-section h3 { color: var(--accent-color); font-size: 2rem; margin-bottom: 1rem; }
+        .portfolio-section p { color: var(--light-text-color); font-size: 1.5rem; line-height: 1.7; }
+        .btn-cta { margin-top: 3rem; padding: 1.2rem 3rem; font-size: 1.6rem; font-weight: 700; background: var(--main-color); color: var(--bg-color); border: .2rem solid var(--main-color); border-radius: .6rem; box-shadow: 0 2px 12px 0 rgba(56,189,248,0.15), 0 0 0 3px var(--accent-color); transition: .3s; display: inline-block; }
+        .btn-cta:hover { background: var(--accent-color); color: var(--bg-color); border-color: var(--accent-color); }
+        @media (max-width: 768px) { .portfolio-info-box { flex-direction: column; gap: 1.5rem; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo"><img src="assets/images/Logo.png" alt="Logo"></a>
+        <nav class="navbar">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="index.html#portfolio" class="active">Portfolio</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+        <a href="index.html#contact" class="btn">Hire Me</a>
+        <i class='bx bx-menu' id="menu-icon"></i>
+    </header>
+    <main>
+        <div class="portfolio-detail-main">
+            <div class="breadcrumb"><a href="index.html">Home</a> &gt; <a href="index.html#portfolio">Portfolio</a> &gt; MediCare+</div>
+            <div class="portfolio-title">MediCare+</div>
+            <img src="assets/images/project1.png" alt="MediCare+" class="portfolio-img-main">
+            <div class="portfolio-info-box">
+                <div class="portfolio-info-item">
+                    <div class="portfolio-info-label">Client</div>
+                    <div class="portfolio-info-value">Dummy Client</div>
+                </div>
+                <div class="portfolio-info-item">
+                    <div class="portfolio-info-label">Project Type</div>
+                    <div class="portfolio-info-value">Web Medical Application</div>
+                </div>
+                <div class="portfolio-info-item">
+                    <div class="portfolio-info-label">Tech Stack</div>
+                    <div class="portfolio-info-value">HTML, CSS, JS</div>
+                </div>
+                <div class="portfolio-info-item">
+                    <div class="portfolio-info-label">Year</div>
+                    <div class="portfolio-info-value">2024</div>
+                </div>
+            </div>
+            <div class="portfolio-section">
+                <h3>Overview</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proyek ini bertujuan untuk memberikan edukasi kesehatan dengan fitur modern dan tampilan interaktif.</p>
+            </div>
+            <div class="portfolio-section">
+                <h3>Project Challenge</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tantangan utama adalah membuat sistem yang mudah digunakan dan informatif.</p>
+            </div>
+            <div class="portfolio-section">
+                <h3>Solution</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Solusi yang diberikan adalah desain UI/UX yang modern dan integrasi API kesehatan.</p>
+            </div>
+            <a href="index.html#contact" class="btn-cta">Have a project? Let's Talk</a>
+        </div>
+    </main>
+</body>
+</html> 
