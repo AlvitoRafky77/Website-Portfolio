@@ -1,0 +1,868 @@
+/* General Styling & Reset */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ========== WARNA UTAMA DAN DASAR BIRU DONGKER ========== */
+:root {
+    --bg-color: #0A192F;
+    --secondary-bg-color: #112240;
+    --text-color: #FFFFFF;
+    --main-color: #2563eb;
+    --accent-color: #38bdf8;
+    --border-color: #233554;
+    --section-gray: #f5f5f5;
+    --text-dark: #111;
+    --text-light: #fff;
+    --border: #e5e5e5;
+    --shadow: 0 2px 16px 0 rgba(0,0,0,0.04);
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+}
+
+section {
+    min-height: 100vh;
+    padding: 10rem 9% 2rem;
+}
+
+.heading {
+    text-align: center;
+    font-size: 4.5rem;
+    margin-bottom: 3rem;
+    color: var(--accent-color);
+    font-weight: 700;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.heading span {
+    color: var(--accent-color);
+}
+
+.btn {
+    display: inline-block;
+    padding: 1rem 2.8rem;
+    background: var(--main-color);
+    border-radius: 4rem;
+    box-shadow: 0 0 1rem var(--main-color);
+    font-size: 1.6rem;
+    color: #fff;
+    letter-spacing: .1rem;
+    font-weight: 600;
+    transition: .5s ease;
+    border: 1px solid var(--main-color);
+}
+
+.btn:hover {
+    box-shadow: none;
+    background: var(--accent-color);
+    color: var(--bg-color);
+    border: 1px solid var(--main-color);
+}
+
+/* Header */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 9%;
+    background: linear-gradient(90deg, #0A192F 80%, #2563eb 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    box-shadow: 0 2px 24px 0 rgba(37,99,235,0.08);
+    transition: .3s;
+}
+
+.header.sticky {
+    border-bottom: .1rem solid rgba(255, 255, 255, 0.2);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 2.5rem;
+    color: var(--text-color);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.logo img {
+    width: 50px;
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--main-color);
+    background: #fff1;
+}
+
+.logo span {
+    color: var(--accent-color);
+}
+
+.navbar a {
+    font-size: 1.7rem;
+    color: var(--text-color);
+    margin-left: 3rem;
+    transition: .3s;
+    position: relative;
+    font-weight: 500;
+}
+
+.navbar a.active,
+.navbar a:hover {
+    color: var(--accent-color);
+}
+
+#menu-icon {
+    font-size: 3.6rem;
+    color: var(--text-color);
+    display: none;
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(120deg, #0A192F 60%, #2563eb 100%);
+    animation: fadeIn 1.2s;
+}
+
+.hero-content h1 {
+    font-size: 5.6rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--accent-color);
+    animation: slideDown 1s;
+}
+
+.hero-content h3 {
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--accent-color);
+    animation: fadeIn 1.5s;
+}
+
+.hero-content p {
+    font-size: 1.6rem;
+    max-width: 600px;
+    margin: 0 auto 4rem;
+    color: #b3c5e6;
+    animation: fadeIn 2s;
+}
+
+/* About Section */
+.about {
+    background: linear-gradient(120deg, #112240 0%, #2563eb 100%);
+}
+
+.about-content {
+    font-size: 2rem;
+    line-height: 1.8;
+    color: #e0e7ef;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Service Section */
+.service {
+    background: linear-gradient(120deg, #0A192F 60%, #2563eb 100%);
+}
+
+.service-container {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.service-item {
+    background: var(--secondary-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 1.5rem;
+    padding: 3rem 2rem;
+    width: 320px;
+    min-height: 220px;
+    box-shadow: 0 4px 24px 0 rgba(37,99,235,0.08);
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 500;
+    transition: transform .3s, box-shadow .3s;
+    margin-bottom: 1.5rem;
+}
+
+.service-item h3, .service-item i {
+    color: var(--accent-color);
+}
+
+.service-item:hover {
+    background: var(--main-color);
+    color: #fff;
+}
+
+/* Why Choose Me Section */
+.why {
+    background: linear-gradient(120deg, #112240 0%, #38bdf8 100%);
+}
+
+.why-container {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.why-item {
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 1.5rem;
+    padding: 3rem 2rem;
+    width: 320px;
+    min-height: 220px;
+    box-shadow: 0 4px 24px 0 rgba(37,99,235,0.08);
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 500;
+    transition: transform .3s, box-shadow .3s;
+    margin-bottom: 1.5rem;
+}
+
+.why-item h3, .why-item i {
+    color: var(--accent-color);
+}
+
+.why-item:hover {
+    background: var(--main-color);
+    color: #fff;
+}
+
+/* Portfolio Section */
+.portfolio {
+    background: linear-gradient(120deg, #0A192F 60%, #2563eb 100%);
+}
+
+.portfolio-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.portfolio-box {
+    position: relative;
+    border-radius: 2rem;
+    box-shadow: 0 0 1rem var(--bg-color);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: var(--secondary-bg-color);
+    border: 1px solid var(--border-color);
+}
+
+.portfolio-box img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: .5s ease;
+}
+
+.portfolio-box:hover img {
+    transform: scale(1.1);
+}
+
+.portfolio-layer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0,0,0, .1), var(--main-color));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 0 2rem;
+    transform: translateY(100%);
+    transition: .5s ease;
+}
+
+.portfolio-box:hover .portfolio-layer {
+    transform: translateY(0);
+}
+
+.portfolio-layer h4 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.portfolio-layer p {
+    font-size: 1.6rem;
+    margin: .3rem 0 1rem;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Skills Section */
+.skill {
+    background: linear-gradient(120deg, #112240 0%, #2563eb 100%);
+}
+
+.skill-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.skill-item {
+    background: var(--bg-color);
+    color: var(--accent-color);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem 3rem;
+    border-radius: .8rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+    transition: .3s ease;
+}
+
+.skill-item:hover {
+    background: var(--main-color);
+    color: #fff;
+}
+
+/* Kontak Section */
+.kontak {
+    background: linear-gradient(120deg, #38bdf8 0%, #0A192F 100%);
+}
+
+.kontak .heading {
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+.kontak form {
+    max-width: 70rem;
+    margin: 1rem auto;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.kontak form input,
+.kontak form textarea {
+    width: 100%;
+    padding: 1.5rem;
+    font-size: 1.6rem;
+    color: var(--text-color);
+    background: var(--secondary-bg-color);
+    border-radius: .8rem;
+    margin: .7rem 0;
+    border: 1px solid var(--border-color);
+}
+
+.kontak form textarea {
+    resize: none;
+}
+
+/* Footer */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 2rem 9%;
+    background: linear-gradient(120deg, #0A192F 60%, #2563eb 100%);
+    color: #fff;
+}
+
+.footer-text p {
+    font-size: 1.6rem;
+    color: #fff;
+}
+
+.footer-social {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.footer-social .btn {
+    background: var(--accent-color);
+    color: var(--bg-color);
+    border: 1px solid var(--main-color);
+}
+.footer-social .btn:hover {
+    background: var(--main-color);
+    color: #fff;
+}
+
+.footer-social a i {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: .8rem;
+    background: var(--main-color);
+    border-radius: .8rem;
+    font-size: 2.4rem;
+    color: #fff;
+    transition: .5s ease;
+}
+
+.footer-social a i:hover {
+    background: var(--accent-color);
+    color: var(--main-color);
+    box-shadow: 0 0 1rem var(--main-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(60px); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-60px); }
+    to { opacity: 1; transform: none; }
+}
+/* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
+    html {
+        font-size: 55%;
+    }
+}
+
+@media (max-width: 991px) {
+    .header {
+        padding: 2rem 3%;
+    }
+    section {
+        padding: 10rem 3% 2rem;
+    }
+    .footer {
+        padding: 2rem 3%;
+    }
+    .service-container, .why-container { flex-direction: column; align-items: center; }
+    .portfolio-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    #menu-icon {
+        display: block;
+    }
+
+    .navbar {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 1rem 3%;
+        background: var(--bg-color);
+        border-top: .1rem solid rgba(0,0,0,.2);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.2);
+        display: none;
+    }
+
+    .navbar.active {
+        display: block;
+    }
+
+    .navbar a {
+        display: block;
+        font-size: 2rem;
+        margin: 3rem 0;
+    }
+
+    .hero-content h1 {
+        font-size: 5rem;
+    }
+    .hero-content h3 {
+        font-size: 2.6rem;
+    }
+}
+
+@media (max-width: 450px) {
+    html {
+        font-size: 50%;
+    }
+    .kontak form {
+        width: 100%;
+    }
+}
+
+@media (max-width: 365px) {
+    .footer {
+        flex-direction: column-reverse;
+        gap: 2rem;
+    }
+}
+
+/* --- PERBAIKAN FONT & LAYOUT --- */
+
+.about-content {
+    font-size: 2rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 2rem;
+}
+
+.service-container, .why-container {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.service-item, .why-item {
+    background: var(--bg-color);
+    border-radius: 1.5rem;
+    padding: 3rem 2rem;
+    width: 320px;
+    min-height: 220px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 500;
+    transition: transform .3s, box-shadow .3s;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+    border: 1px solid var(--border);
+}
+
+.service-item h3, .why-item h3 {
+    font-size: 2.2rem;
+    margin: 1rem 0 1rem 0;
+    color: var(--text-dark);
+}
+
+.portfolio-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.portfolio-box {
+    position: relative;
+    border-radius: 2rem;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-color);
+    border: 1px solid var(--border);
+}
+
+.portfolio-box img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: .5s ease;
+}
+
+.portfolio-layer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 0 2rem;
+    transform: translateY(100%);
+    transition: .5s ease;
+    color: var(--text-light);
+}
+
+.portfolio-box:hover .portfolio-layer {
+    transform: translateY(0);
+}
+
+.portfolio-layer h4 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.portfolio-layer p {
+    font-size: 1.6rem;
+    margin: .3rem 0 1rem;
+    color: var(--text-light);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Hapus class lama .portofolio-* */
+.portofolio, .portofolio-container, .portofolio-box, .portofolio-layer { display: none !important; }
+
+/* ABOUT dengan gradasi biru ke biru muda */
+.about {
+    background: var(--bg-color);
+}
+.about .heading {
+    color: var(--text-dark);
+}
+.about-content {
+    color: #444;
+}
+
+/* SERVICE dengan gradasi biru dongker ke biru terang */
+.service {
+    background: var(--section-gray);
+    color: var(--text-dark);
+}
+.service .heading {
+    color: var(--text-dark);
+}
+.service-item {
+    background: var(--bg-color);
+    color: var(--text-dark);
+    border: 1px solid var(--border);
+}
+.service-item h3, .service-item i {
+    color: var(--text-dark);
+}
+.service-item:hover {
+    background: var(--section-gray);
+    color: var(--text-dark);
+}
+
+/* WHY dengan gradasi biru ke biru muda */
+.why {
+    background: var(--section-gray);
+    color: var(--text-dark);
+}
+.why .heading {
+    color: var(--text-dark);
+}
+.why-item {
+    background: var(--bg-color);
+    color: var(--text-dark);
+    border: 1px solid var(--border);
+}
+.why-item h3, .why-item i {
+    color: var(--text-dark);
+}
+.why-item:hover {
+    background: var(--section-gray);
+    color: var(--text-dark);
+}
+
+/* Footer text dan icon */
+.footer-text p, .footer-social .btn {
+    color: var(--text-dark);
+}
+.footer-social a i {
+    background: var(--text-dark);
+    color: var(--text-light);
+}
+.footer-social a i:hover {
+    background: var(--text-light);
+    color: var(--text-dark);
+    box-shadow: 0 0 1rem var(--text-dark);
+}
+
+/* About, Skill, Kontak: pastikan teks gelap di background terang */
+.about-content, .skill-item, .kontak form input, .kontak form textarea {
+    color: var(--text-dark);
+}
+
+/* --- PERBAIKAN WARNA HEADING "ABOUT ME" --- */
+.about .heading {
+    color: #fff !important; /* Paksa teks "About" menjadi putih */
+}
+.about .heading span {
+    color: var(--accent-color) !important; /* Pastikan "Me" tetap biru muda */
+}
+
+/* --- PERBAIKAN KONTRAS (Sesuai Gambar Terbaru) --- */
+
+/* Heading di section gelap */
+.about .heading, .skill .heading {
+    color: #fff; /* Teks utama heading putih */
+}
+.about .heading span, .skill .heading span {
+    color: var(--accent-color); /* Teks span biru muda */
+}
+
+/* Service & Why Me cards */
+.service-item, .why-item {
+    background: var(--secondary-bg-color); /* Background card biru dongker */
+}
+.service-item i, .why-item i {
+    color: var(--accent-color) !important; /* Icon biru muda terang */
+}
+.service-item h3, .why-item h3 {
+    color: #fff !important; /* Judul card putih */
+}
+.service-item p, .why-item p {
+    color: #b3c5e6 !important; /* Deskripsi card abu-abu terang */
+}
+.service-item:hover, .why-item:hover {
+    background: var(--main-color); /* Hover background biru terang */
+    transform: translateY(-10px);
+}
+
+.kontak .heading {
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+/* ABOUT dengan gradasi biru ke biru muda */
+.about {
+    background: var(--bg-color);
+}
+.about .heading {
+    color: var(--text-dark);
+}
+.about-content {
+    color: #444;
+}
+
+/* SERVICE dengan gradasi biru dongker ke biru terang */
+.service {
+    background: var(--section-gray);
+    color: var(--text-dark);
+}
+.service .heading {
+    color: var(--text-dark);
+}
+.service-item {
+    background: var(--bg-color);
+    color: var(--text-dark);
+    border: 1px solid var(--border);
+}
+.service-item h3, .service-item i {
+    color: var(--text-dark);
+}
+.service-item:hover {
+    background: var(--section-gray);
+    color: var(--text-dark);
+}
+
+/* WHY dengan gradasi biru ke biru muda */
+.why {
+    background: var(--section-gray);
+    color: var(--text-dark);
+}
+.why .heading {
+    color: var(--text-dark);
+}
+.why-item {
+    background: var(--bg-color);
+    color: var(--text-dark);
+    border: 1px solid var(--border);
+}
+.why-item h3, .why-item i {
+    color: var(--text-dark);
+}
+.why-item:hover {
+    background: var(--section-gray);
+    color: var(--text-dark);
+}
+
+/* Footer text dan icon */
+.footer-text p, .footer-social .btn {
+    color: var(--text-dark);
+}
+.footer-social a i {
+    background: var(--text-dark);
+    color: var(--text-light);
+}
+.footer-social a i:hover {
+    background: var(--text-light);
+    color: var(--text-dark);
+    box-shadow: 0 0 1rem var(--text-dark);
+}
+
+/* About, Skill, Kontak: pastikan teks gelap di background terang */
+.about-content, .skill-item, .kontak form input, .kontak form textarea {
+    color: var(--text-dark);
+}
+
+/* --- PERBAIKAN KONTRAS TEKS (Sesuai Gambar) --- */
+
+/* About Me section paragraph */
+.about-content p {
+    color: #e0e7ef !important; /* Warna terang untuk paragraf */
+}
+
+/* Service section cards */
+.service-item h3 {
+    color: #fff !important; /* Judul card putih */
+}
+.service-item p {
+    color: #b3c5e6 !important; /* Teks card abu-abu terang */
+}
+
+/* Skills & Tools boxes */
+.skill-item {
+    color: #fff !important; /* Teks di dalam box skill putih */
+}
+
+/* Tombol Kirim Pesan */
+.kontak .btn {
+    color: #fff !important; /* Teks tombol putih */
+}
+
+/* Footer text */
+.footer-text p {
+    color: #e0e7ef !important; /* Teks copyright terang */
+}
+
+/* --- PERBAIKAN FINAL KARTU HOVER --- */
+
+/* Hover state untuk kartu Service & Why Me */
+.service-item:hover, .why-item:hover {
+    background-color: var(--main-color) !important; /* Paksa background jadi biru terang */
+    transform: translateY(-10px);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.2);
+}
+
+/* Teks dan icon di dalam kartu saat di-hover */
+.service-item:hover h3,
+.service-item:hover p,
+.service-item:hover i,
+.why-item:hover h3,
+.why-item:hover p,
+.why-item:hover i {
+    color: #fff !important; /* Paksa semua elemen di dalam menjadi putih */
+} 
