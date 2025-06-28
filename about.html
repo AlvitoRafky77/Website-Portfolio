@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
     <style>
         body {
             background: var(--bg-color);
@@ -174,53 +175,53 @@
         <i class='bx bx-menu' id="menu-icon"></i>
     </header>
     <main>
-        <section class="about-main">
-            <div class="about-avatar">
+        <section class="about-main" data-aos="fade-up">
+            <div class="about-avatar" data-aos="zoom-in">
                 <img src="assets/images/hero-placeholder.png" alt="Alvito Rafky Sumeri">
                 <div class="avatar-name">Alvito Rafky Sumeri</div>
             </div>
             <div class="about-content">
-                <h1>About Me</h1>
-                <h2>I build software that solve user problems</h2>
-                <div class="about-summary">
+                <h1 data-aos="fade-right">About Me</h1>
+                <h2 data-aos="fade-right" data-aos-delay="100">I build software that solve user problems</h2>
+                <div class="about-summary" data-aos="fade-up" data-aos-delay="200">
                     Saya adalah mahasiswa aktif semester 6 di Telkom University, Jakarta Campus, jurusan Sistem Informasi. Saya memiliki minat yang kuat dalam pengembangan aplikasi berbasis web dan desain antarmuka pengguna yang modern. Selama perjalanan akademik dan proyek pribadi saya, saya telah mengerjakan berbagai aplikasi dan website yang tidak hanya fungsional, tetapi juga dirancang dengan memperhatikan pengalaman pengguna.<br><br>
                     Saya percaya bahwa teknologi bukan sekadar alat, melainkan sarana untuk menciptakan solusi yang berdampak dan inklusif. Dengan kombinasi kemampuan teknis di bidang pemrograman dan sensitivitas terhadap desain UI/UX, saya terus berupaya menciptakan produk digital yang efektif dan estetis.<br><br>
                     Saya aktif mengembangkan portofolio melalui berbagai proyek seperti website edukasi kesehatan, sistem marketplace terintegrasi API, serta mockup desain antarmuka berbasis Figma. Semangat belajar, keingintahuan tinggi, dan kemauan untuk terus berkembang adalah nilai yang saya pegang dalam setiap karya yang saya bangun.
                 </div>
-                <div class="about-info-list">
+                <div class="about-info-list" data-aos="fade-up" data-aos-delay="300">
                     <div class="info-item"><span class="info-label">Lokasi:</span> Jakarta, Indonesia</div>
                     <div class="info-item"><span class="info-label">Email:</span> alvitorafky44@gmail.com</div>
                     <div class="info-item"><span class="info-label">Pendidikan:</span> S1 Sistem Informasi, Telkom University</div>
                     <div class="info-item"><span class="info-label">Minat:</span> Web Development, UI/UX, Startup, Teknologi, Figma</div>
                 </div>
-                <div class="about-skills">
+                <div class="about-skills" data-aos="fade-up" data-aos-delay="400">
                     <h3>Skills</h3>
                     <div class="skill-bar">
                         <div class="skill-title">HTML</div>
-                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:95%"></div></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:0%" data-width="95%"></div></div>
                     </div>
                     <div class="skill-bar">
                         <div class="skill-title">CSS</div>
-                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:90%"></div></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:0%" data-width="90%"></div></div>
                     </div>
                     <div class="skill-bar">
                         <div class="skill-title">JavaScript</div>
-                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:80%"></div></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:0%" data-width="80%"></div></div>
                     </div>
                     <div class="skill-bar">
                         <div class="skill-title">Laravel</div>
-                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:75%"></div></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:0%" data-width="75%"></div></div>
                     </div>
                     <div class="skill-bar">
                         <div class="skill-title">Figma</div>
-                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:85%"></div></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:0%" data-width="85%"></div></div>
                     </div>
                     <div class="skill-bar">
                         <div class="skill-title">WordPress</div>
-                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:70%"></div></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:0%" data-width="70%"></div></div>
                     </div>
                 </div>
-                <div class="about-education">
+                <div class="about-education" data-aos="fade-up" data-aos-delay="500">
                     <h3>Education</h3>
                     <div class="edu-item">
                         <div class="edu-title">S1 Sistem Informasi (2022 - sekarang)</div>
@@ -231,9 +232,39 @@
                         <div class="edu-school">SMA Negeri 22 Jakarta</div>
                     </div>
                 </div>
-                <a href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=alvitorafky44@gmail.com" class="btn-hire">Hire Me</a>
+                <a href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=alvitorafky44@gmail.com" class="btn" target="_blank">Hire Me</a>
             </div>
         </section>
     </main>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 900,
+        once: true,
+        easing: 'ease-in-out',
+      });
+      // Animasi bar skills
+      function animateSkillBars() {
+        document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+          const target = bar.getAttribute('data-width');
+          bar.style.width = target;
+        });
+      }
+      // Observer untuk skills
+      const skillsSection = document.querySelector('.about-skills');
+      let skillsAnimated = false;
+      if (skillsSection) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !skillsAnimated) {
+              animateSkillBars();
+              skillsAnimated = true;
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.5 });
+        observer.observe(skillsSection);
+      }
+    </script>
 </body>
 </html> 

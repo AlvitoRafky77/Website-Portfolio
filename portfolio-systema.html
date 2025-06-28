@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
     <style>
         body { background: var(--bg-color); color: var(--text-color); }
         .portfolio-detail-main { max-width: 1100px; margin: 0 auto; padding: 10rem 2rem 4rem 2rem; }
@@ -42,13 +43,13 @@
     </header>
     <main>
         <div class="portfolio-detail-main">
-            <div class="breadcrumb"><a href="index.html">Home</a> &gt; <a href="index.html#portfolio">Portfolio</a> &gt; Systema</div>
-            <div class="portfolio-title">Systema HIMSI</div>
-            <img src="assets/images/project2.jpg" alt="Systema" class="portfolio-img-main">
-            <div class="portfolio-info-box">
+            <div class="breadcrumb" data-aos="fade-right"><a href="index.html">Home</a> &gt; <a href="index.html#portfolio">Portfolio</a> &gt; Systema</div>
+            <div class="portfolio-title" data-aos="fade-up">Systema HIMSI</div>
+            <img src="assets/images/project2.jpg" alt="Systema" class="portfolio-img-main" data-aos="zoom-in">
+            <div class="portfolio-info-box" data-aos="fade-up">
                 <div class="portfolio-info-item">
                     <div class="portfolio-info-label">Client</div>
-                    <div class="portfolio-info-value">HIMSI Tel-U Jakarta</div>
+                    <div class="portfolio-info-value">HIMSI Tel-UJakarta</div>
                 </div>
                 <div class="portfolio-info-item">
                     <div class="portfolio-info-label">Project Type</div>
@@ -63,20 +64,36 @@
                     <div class="portfolio-info-value">2025</div>
                 </div>
             </div>
-            <div class="portfolio-section">
+            <div class="portfolio-section" data-aos="fade-up">
                 <h3>Overview</h3>
                 <p>Systema HIMSI adalah website UMKM yang dikembangkan untuk mendukung koperasi mahasiswa HIMSI Telkom University Jakarta. Platform ini berfungsi sebagai etalase digital untuk penjualan produk seperti makanan, minuman, dan merchandise, serta menjadi sarana pembelajaran kewirausahaan berbasis teknologi.</p>
             </div>
-            <div class="portfolio-section">
+            <div class="portfolio-section" data-aos="fade-up">
                 <h3>Project Challenge</h3>
                 <p>Tantangan utama adalah kurangnya promosi, jangkauan pasar yang terbatas, dan operasional yang masih manual. Diperlukan sistem digital terintegrasi yang efisien dan mudah digunakan oleh mahasiswa.</p>
             </div>
-            <div class="portfolio-section">
+            <div class="portfolio-section" data-aos="fade-up">
                 <h3>Solution</h3>
                 <p>Solusinya adalah membangun website marketplace dengan tampilan modern, fitur manajemen inventaris, transaksi, dan analitik. Platform ini mendukung pertumbuhan UMKM mahasiswa serta sejalan dengan tujuan SDGs poin 8: pertumbuhan ekonomi yang inklusif dan berkelanjutan.</p>
             </div>
             <a href="index.html#contact" class="btn-cta">Have a project? Let's Talk</a>
         </div>
     </main>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 900,
+            once: true,
+            easing: 'ease-in-out',
+        });
+
+        const portfolioImg = document.querySelector('.portfolio-img-main');
+        window.addEventListener('scroll', () => {
+            if (portfolioImg) {
+                const scrolled = window.scrollY;
+                portfolioImg.style.transform = `scale(1.04) translateY(${scrolled * 0.08}px)`;
+            }
+        });
+    </script>
 </body>
 </html> 

@@ -96,4 +96,15 @@ const observer = new IntersectionObserver((entries) => {
 
 if (counterSection) {
     observer.observe(counterSection);
-} 
+}
+
+// =============================================
+// Parallax Effect on Hero Image
+// =============================================
+const heroImg = document.querySelector('.hero-image img');
+window.addEventListener('scroll', () => {
+    if (heroImg) {
+        const scrolled = window.scrollY;
+        heroImg.style.transform = `translateY(${scrolled * 0.15}px)`;
+    }
+}); 

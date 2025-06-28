@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
     <style>
         body { background: var(--bg-color); color: var(--text-color); }
         .portfolio-detail-main { max-width: 1100px; margin: 0 auto; padding: 10rem 2rem 4rem 2rem; }
@@ -42,10 +43,10 @@
     </header>
     <main>
         <div class="portfolio-detail-main">
-            <div class="breadcrumb"><a href="index.html">Home</a> &gt; <a href="index.html#portfolio">Portfolio</a> &gt; Haluan Hub</div>
-            <div class="portfolio-title">Haluan Hub</div>
-            <img src="assets/images/figmahaluanhub.png" alt="Haluan Hub" class="portfolio-img-main">
-            <div class="portfolio-info-box">
+            <div class="breadcrumb" data-aos="fade-right"><a href="index.html">Home</a> &gt; <a href="index.html#portfolio">Portfolio</a> &gt; Haluan Hub</div>
+            <div class="portfolio-title" data-aos="fade-up">Haluan Hub</div>
+            <img src="assets/images/figmahaluanhub.png" alt="Haluan Hub" class="portfolio-img-main" data-aos="zoom-in">
+            <div class="portfolio-info-box" data-aos="fade-up">
                 <div class="portfolio-info-item">
                     <div class="portfolio-info-label">Client</div>
                     <div class="portfolio-info-value">Haluan Digital Agency</div>
@@ -63,20 +64,36 @@
                     <div class="portfolio-info-value">2025</div>
                 </div>
             </div>
-            <div class="portfolio-section">
+            <div class="portfolio-section" data-aos="fade-up">
                 <h3>Overview</h3>
                 <p><strong>Haluan Hub</strong> adalah platform digital yang menghubungkan produk-produk berkualitas dengan para talenta pemasaran digital di Indonesia. UI/UX HaluanHub dirancang untuk mendukung ekosistem afiliasi modern, memfasilitasi distribusi produk dan pengelolaan komisi dengan pengalaman pengguna yang intuitif dan profesional.</p>
             </div>
-            <div class="portfolio-section">
+            <div class="portfolio-section" data-aos="fade-up">
                 <h3>Project Challenge</h3>
                 <p>Tantangannya adalah bagaimana merancang interface yang mampu menyatukan kebutuhan produsen dan pemasar dalam satu platform, tanpa mengorbankan kemudahan navigasi, aksesibilitas, dan kesan brand yang tepercaya.</p>
             </div>
-            <div class="portfolio-section">
+            <div class="portfolio-section" data-aos="fade-up">
                 <h3>Solution</h3>
                 <p>Solusinya adalah membuat prototype desain di Figma dengan pendekatan minimalis, profesional, dan efisien. Fokus utama adalah pada struktur informasi yang jelas, UI yang modern, serta sistem komisi dan dashboard performa yang mudah digunakan oleh semua level pengguna.</p>
             </div>
             <a href="index.html#contact" class="btn-cta">Have a project? Let's Talk</a>
         </div>
     </main>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 900,
+            once: true,
+            easing: 'ease-in-out',
+        });
+
+        const portfolioImg = document.querySelector('.portfolio-img-main');
+        window.addEventListener('scroll', () => {
+            if (portfolioImg) {
+                const scrolled = window.scrollY;
+                portfolioImg.style.transform = `scale(1.04) translateY(${scrolled * 0.08}px)`;
+            }
+        });
+    </script>
 </body>
 </html> 

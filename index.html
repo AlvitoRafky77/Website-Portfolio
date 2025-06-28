@@ -15,6 +15,9 @@
 
     <!-- Link ke CSS -->
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Tambahkan di <head> sebelum </head> -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 </head>
 <body>
 
@@ -41,7 +44,7 @@
         <!-- ============================================= -->
         <!-- START: Hero Section -->
         <!-- ============================================= -->
-        <section class="hero" id="home">
+        <section class="hero" id="home" data-aos="fade-up">
             <div class="hero-content">
                 <h4>Hi! I'm</h4>
                 <h1>Alvito Rafky Sumeri</h1>
@@ -64,7 +67,7 @@
         <!-- ============================================= -->
         <!-- START: About / Why Hire Me Section -->
         <!-- ============================================= -->
-        <section class="about" id="about">
+        <section class="about" id="about" data-aos="fade-up">
             <div class="about-text">
                 <h2 class="heading">Why you hire me for your <span>next project?</span></h2>
                 <p>
@@ -99,7 +102,7 @@
         <!-- ============================================= -->
         <!-- START: Portfolio Section -->
         <!-- ============================================= -->
-        <section class="portfolio" id="portfolio">
+        <section class="portfolio" id="portfolio" data-aos="fade-up">
             <div class="section-header">
                 <h2 class="heading">My latest <span>awesome Projects</span></h2>
             </div>
@@ -160,7 +163,7 @@
         <!-- ============================================= -->
         <!-- START: Counter Section -->
         <!-- ============================================= -->
-        <section class="counter-section">
+        <section class="counter-section" data-aos="zoom-in">
             <div class="counter-item">
                 <h3 class="counter" data-target="3">0</h3>
                 <p>Years Of Experience</p>
@@ -182,7 +185,7 @@
         <!-- ============================================= -->
         <!-- START: Testimonial Section (Placeholder) -->
         <!-- ============================================= -->
-        <section class="testimonial" id="testimonial">
+        <section class="testimonial" id="testimonial" data-aos="fade-up">
             <h2 class="heading">What my client have to <span>say about me</span></h2>
             <div class="testimonial-grid">
                 <div class="testimonial-box">
@@ -216,9 +219,9 @@
         <!-- ============================================= -->
         <!-- START: CTA Section -->
         <!-- ============================================= -->
-        <section class="cta-section" id="contact">
+        <section class="cta-section" id="contact" data-aos="fade-up">
             <h2>Have a project?</h2>
-            <a href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=alvitorafky44@gmail.com" class="btn">Let's Talk</a>
+            <a href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=alvitorafky44@gmail.com" class="btn" target="_blank">Let's Talk</a>
         </section>
         <!-- ============================================= -->
         <!-- END: CTA Section -->
@@ -241,6 +244,16 @@
     <!-- ============================================= -->
 
     <script src="js/main.js"></script>
+
+    <!-- Tambahkan sebelum </body> -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 900,
+        once: true,
+        easing: 'ease-in-out',
+      });
+    </script>
 
 </body>
 </html>

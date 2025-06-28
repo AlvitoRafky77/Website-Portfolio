@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
     <style>
         body { background: var(--bg-color); color: var(--text-color); }
         .portfolio-detail-main { max-width: 1100px; margin: 0 auto; padding: 10rem 2rem 4rem 2rem; }
@@ -42,10 +43,10 @@
     </header>
     <main>
         <div class="portfolio-detail-main">
-            <div class="breadcrumb"><a href="index.html">Home</a> &gt; <a href="index.html#portfolio">Portfolio</a> &gt; MediCare+</div>
-            <div class="portfolio-title">MediCare+</div>
-            <img src="assets/images/project1.png" alt="MediCare+" class="portfolio-img-main">
-            <div class="portfolio-info-box">
+            <div class="breadcrumb" data-aos="fade-right"><a href="index.html">Home</a> &gt; <a href="index.html#portfolio">Portfolio</a> &gt; MediCare+</div>
+            <div class="portfolio-title" data-aos="fade-up">MediCare+</div>
+            <img src="assets/images/project1.png" alt="MediCare+" class="portfolio-img-main" data-aos="zoom-in">
+            <div class="portfolio-info-box" data-aos="fade-up">
                 <div class="portfolio-info-item">
                     <div class="portfolio-info-label">Client</div>
                     <div class="portfolio-info-value">KLINIK UTAMA FAKHIRA</div>
@@ -63,20 +64,36 @@
                     <div class="portfolio-info-value">2024</div>
                 </div>
             </div>
-            <div class="portfolio-section">
+            <div class="portfolio-section" data-aos="fade-up">
                 <h3>Overview</h3>
                 <p><strong>MediCare+</strong> adalah platform edukasi kesehatan digital yang dirancang untuk memberikan informasi medis terpercaya kepada masyarakat. Proyek ini bertujuan untuk menyajikan konten interaktif, fitur komunitas, dan layanan berbasis web yang mudah diakses oleh pengguna umum.</p>
             </div>
-            <div class="portfolio-section">
+            <div class="portfolio-section" data-aos="fade-up">
                 <h3>Project Challenge</h3>
                 <p>Tantangan utama dalam proyek ini adalah menyajikan informasi kesehatan dalam format yang menarik, mudah dipahami, dan tetap sesuai standar kredibilitas medis. Selain itu, diperlukan desain antarmuka yang ramah pengguna dari berbagai usia, serta kecepatan akses yang optimal.</p>
             </div>
-            <div class="portfolio-section">
+            <div class="portfolio-section" data-aos="fade-up">
                 <h3>Solution</h3>
                 <p>Solusi yang diterapkan adalah merancang tampilan UI/UX modern dengan pendekatan mobile-first dan struktur konten modular. Kami juga mengintegrasikan fitur edukatif, forum komunitas, sistem reminder, dan point reward, serta membuat konten yang dapat dengan mudah diakses di berbagai perangkat.</p>
             </div>
             <a href="index.html#contact" class="btn-cta">Have a project? Let's Talk</a>
         </div>
     </main>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 900,
+            once: true,
+            easing: 'ease-in-out',
+        });
+
+        const portfolioImg = document.querySelector('.portfolio-img-main');
+        window.addEventListener('scroll', () => {
+            if (portfolioImg) {
+                const scrolled = window.scrollY;
+                portfolioImg.style.transform = `scale(1.04) translateY(${scrolled * 0.08}px)`;
+            }
+        });
+    </script>
 </body>
 </html> 
