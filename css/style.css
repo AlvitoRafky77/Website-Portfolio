@@ -570,4 +570,26 @@ section {
         flex-direction: column-reverse;
         gap: 2rem;
     }
+}
+
+/* ============================================= */
+/* TESTIMONIAL GRID 2 KOLOM */
+/* ============================================= */
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+@media (max-width: 900px) {
+    .testimonial-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.testimonial-box {
+    max-width: 100%;
+    margin: 0;
 } 
