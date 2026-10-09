@@ -43,9 +43,9 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#090D16] text-slate-100 flex flex-col selection:bg-cyan-500/20 selection:text-cyan-300">
+    <div className="min-h-screen w-full bg-[#090D16] text-slate-100 flex flex-col overflow-x-hidden selection:bg-cyan-500/20 selection:text-cyan-300">
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex-grow w-full overflow-x-hidden">
         <Hero />
         <AboutSection />
         <SkillsSection />

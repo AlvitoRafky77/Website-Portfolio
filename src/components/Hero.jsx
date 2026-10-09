@@ -45,26 +45,26 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="space-y-2"
+              className="space-y-2 max-w-full overflow-hidden"
             >
-              <p className="text-slate-400 font-medium text-sm sm:text-base tracking-wide flex items-center justify-center lg:justify-start gap-2">
+              <p className="text-slate-400 font-medium text-xs sm:text-base tracking-wide flex items-center justify-center lg:justify-start gap-2">
                 <span>Halo, saya</span> <span className="inline-block animate-bounce">👋</span>
               </p>
-              <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight cursor-default">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight cursor-default break-words">
                 <DecryptedText 
                   text={personalInfo.name} 
                   speed={35} 
                   maxIterations={14} 
                   animateOn="hover"
-                  parentClassName="inline-block"
+                  parentClassName="inline-block max-w-full break-words"
                 />
               </h1>
-              <p className="text-xl sm:text-2xl font-semibold bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">
+              <p className="text-lg sm:text-2xl font-semibold bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent break-words">
                 <DecryptedText 
                   text={personalInfo.role} 
                   speed={45} 
                   animateOn="view"
-                  parentClassName="inline-block"
+                  parentClassName="inline-block max-w-full break-words"
                 />
               </p>
             </motion.div>
