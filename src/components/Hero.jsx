@@ -23,9 +23,9 @@ export default function Hero() {
       {/* 3D Three.js Interactive Canvas Background */}
       <ThreeCanvas />
 
-      {/* Subtle Ambient Radial Lighting */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-cyan-500/10 blur-[140px] rounded-full pointer-events-none animate-pulse-slow" />
-      <div className="absolute bottom-10 right-10 w-[350px] h-[350px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none animate-float" />
+      {/* Subtle Ambient Radial Lighting — static, no animation for perf */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-cyan-500/[0.06] blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[300px] h-[300px] bg-blue-600/[0.06] blur-[90px] rounded-full pointer-events-none" />
 
       {/* Grid Pattern Overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />

@@ -19,8 +19,8 @@ export default {
         inter:   ["Inter", "system-ui", "sans-serif"],
       },
       animation: {
-        "marquee":   "marquee 55s linear infinite",
-        "marquee-r": "marquee-r 55s linear infinite",
+        "marquee":   "marquee 90s linear infinite",
+        "marquee-r": "marquee-r 90s linear infinite",
         "spin-slow": "spin 12s linear infinite",
         "float":     "float 6s ease-in-out infinite",
         "float-delayed": "float 7s ease-in-out 2s infinite",

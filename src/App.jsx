@@ -8,7 +8,6 @@ import ProjectsSection from './components/ProjectsSection';
 import AboutSection from './components/AboutSection';
 import SkillsSection from './components/SkillsSection';
 import ContactSection from './components/ContactSection';
-import CustomCursor from './components/CustomCursor';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -54,12 +53,6 @@ export default function App() {
 
   return (
     <div className="bg-[#080B11] text-white min-h-screen selection:bg-[#00F0FF]/30 selection:text-[#00F0FF] font-sans relative overflow-x-clip">
-      {/* Custom Cursor interaktif */}
-      <CustomCursor />
-
-      {/* Subtle Analog Film Grain for ultra-premium texture */}
-      <div className="film-grain" aria-hidden="true" />
-
       {/* Preloader Slide-Up Screen */}
       <Preloader isVisible={isLoading} onComplete={handlePreloaderComplete} />
 

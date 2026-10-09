@@ -296,10 +296,8 @@ export default function ProjectsSection() {
         {/* ─── Sticky Viewport — muat pas di bawah Navbar ──────────── */}
         <div className="sticky top-0 h-screen overflow-hidden bg-[#080B11] flex flex-col pt-14 sm:pt-16 pb-14 relative">
 
-          {/* ── Animated Cyber Aurora Ambient Glow (Theme: Aurora Drift) ── */}
-          <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 h-[340px] bg-gradient-to-r from-transparent via-[#00F0FF]/[0.035] to-blue-500/[0.03] blur-[130px] pointer-events-none animate-pulse-slow" aria-hidden="true" />
-          <div className="absolute top-16 left-1/4 w-[360px] h-[360px] bg-cyan-400/[0.025] blur-[140px] rounded-full animate-float pointer-events-none" aria-hidden="true" />
-          <div className="absolute bottom-12 right-1/4 w-[380px] h-[380px] bg-blue-500/[0.025] blur-[150px] rounded-full animate-float-delayed pointer-events-none" aria-hidden="true" />
+          {/* ── Static Ambient Glow (no animation for perf) ── */}
+          <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 h-[300px] bg-gradient-to-r from-transparent via-[#00F0FF]/[0.025] to-blue-500/[0.02] blur-[100px] pointer-events-none" aria-hidden="true" />
 
           {/* ── Section Header — slides up smoothly ──────────────── */}
           <motion.div
