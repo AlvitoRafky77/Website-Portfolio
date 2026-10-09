@@ -65,11 +65,9 @@ export default function SkillsSection() {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* ── Animated Cyber Matrix Dots & Node Mesh Background ── */}
-      <div className="absolute inset-0 bg-dots-cyber [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_60%,transparent_100%)] opacity-40 pointer-events-none" aria-hidden="true" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-cyan-500/5 blur-[160px] rounded-full pointer-events-none animate-pulse-slow" aria-hidden="true" />
-      <div className="absolute top-10 right-20 w-[300px] h-[300px] bg-sky-400/[0.03] blur-[120px] rounded-full pointer-events-none animate-float" aria-hidden="true" />
-      <div className="absolute bottom-10 left-20 w-[300px] h-[300px] bg-indigo-500/[0.03] blur-[120px] rounded-full pointer-events-none animate-float-delayed" aria-hidden="true" />
+      {/* ── Static dot-grid + single ambient glow (no animation = no lag) ── */}
+      <div className="absolute inset-0 bg-dots-cyber [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_60%,transparent_100%)] opacity-30 pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-cyan-500/[0.04] blur-[100px] rounded-full pointer-events-none" aria-hidden="true" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
@@ -191,7 +189,10 @@ export default function SkillsSection() {
           <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#080B11] to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#080B11] to-transparent z-10 pointer-events-none" />
 
-          <div className="flex whitespace-nowrap animate-marquee hover:[animation-play-state:paused] cursor-default" style={{ width: 'max-content' }}>
+          <div
+            className="flex whitespace-nowrap animate-marquee hover:[animation-play-state:paused] cursor-default"
+            style={{ width: 'max-content', animationDuration: `${SKILLS_LIST.length * 3.5}s`, willChange: 'transform' }}
+          >
             {[...SKILLS_LIST, ...SKILLS_LIST].map((item, index) => {
               const Icon = item.icon;
               return (

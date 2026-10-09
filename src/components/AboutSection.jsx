@@ -21,9 +21,11 @@ const techMarqueeItems = [
   'REST API', 'Responsive Web', 'Lenis Scroll', 'Node.js', 'Framer Motion',
 ];
 
-function MarqueeStrip({ direction = 'left', speed = 5 }) {
+function MarqueeStrip({ direction = 'left' }) {
   const items = [...techMarqueeItems, ...techMarqueeItems];
   const animationClass = direction === 'left' ? 'animate-marquee' : 'animate-marquee-r';
+  // 3.5s per item → kecepatan konsisten berapapun jumlah item
+  const duration = `${techMarqueeItems.length * 3.5}s`;
 
   return (
     <div className="relative overflow-hidden w-full py-3 border-t border-b border-white/8 my-0">
@@ -31,7 +33,10 @@ function MarqueeStrip({ direction = 'left', speed = 5 }) {
       <div className="absolute left-0 top-0 h-full w-20 z-10 bg-gradient-to-r from-[#080B11] to-transparent pointer-events-none" />
       <div className="absolute right-0 top-0 h-full w-20 z-10 bg-gradient-to-l from-[#080B11] to-transparent pointer-events-none" />
 
-      <div className={`flex whitespace-nowrap hover:[animation-play-state:paused] cursor-default ${animationClass}`} style={{ width: 'max-content' }}>
+      <div
+        className={`flex whitespace-nowrap hover:[animation-play-state:paused] cursor-default ${animationClass}`}
+        style={{ width: 'max-content', animationDuration: duration, willChange: 'transform' }}
+      >
         {items.map((item, i) => (
           <span key={`${item}-${i}`} className="inline-flex items-center gap-3 mx-6 text-xs font-mono uppercase tracking-widest text-slate-400">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF] shrink-0 shadow-[0_0_6px_#00F0FF]" />
