@@ -1,147 +1,207 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Code2, 
   Palette, 
   Cpu, 
-  Layout, 
   Database, 
   Globe, 
   GitBranch, 
-  Wrench, 
-  CheckCircle2, 
-  Terminal, 
-  Layers 
+  ChevronLeft, 
+  ChevronRight,
+  Layers,
+  Terminal,
+  Workflow,
+  Sparkles,
+  Server
 } from 'lucide-react';
 import { FigmaIcon } from './Icons';
-import { skillsData } from '../data/portfolioData';
-import SpotlightCard from './SpotlightCard';
 
-const iconMap = {
-  Code2: Code2,
-  Palette: Palette,
-  Cpu: Cpu,
-  Figma: FigmaIcon,
-  Layout: Layout,
-  Database: Database,
-  Globe: Globe,
-  GitBranch: GitBranch,
-};
+// Comprehensive list: clean Logo + Name + Category only
+const SKILLS_LIST = [
+  { name: 'Laravel', category: 'Backend', icon: Server },
+  { name: 'React', category: 'Frontend', icon: Code2 },
+  { name: 'MySQL DB', category: 'Database', icon: Database },
+  { name: 'Figma UI/UX', category: 'Design', icon: FigmaIcon },
+  { name: 'System Analysis', category: 'Analyst', icon: Cpu },
+  { name: 'Tailwind CSS', category: 'Frontend', icon: Palette },
+  { name: 'PHP', category: 'Backend', icon: Server },
+  { name: 'JavaScript', category: 'Frontend', icon: Code2 },
+  { name: 'Git & GitHub', category: 'Version Control', icon: GitBranch },
+  { name: 'RESTful API', category: 'Backend', icon: Workflow },
+  { name: 'WordPress', category: 'CMS / Web', icon: Globe },
+  { name: 'Three.js / 3D', category: 'Creative Tech', icon: Sparkles },
+];
+
+// Group skills into slides (4 skills per slide for clean grid display)
+const ITEMS_PER_SLIDE = 4;
+const totalSlides = Math.ceil(SKILLS_LIST.length / ITEMS_PER_SLIDE);
 
 export default function SkillsSection() {
-  const [activeCategory, setActiveCategory] = useState('Semua');
-  const categories = ['Semua', 'Backend', 'Frontend', 'Design', 'Analyst', 'Tools'];
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
-  const filteredSkills = activeCategory === 'Semua' 
-    ? skillsData 
-    : skillsData.filter(s => s.category === activeCategory);
+  // Auto-play carousel with pause on hover
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % totalSlides);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [isPaused]);
+
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+
+  const visibleSkills = SKILLS_LIST.slice(
+    currentSlide * ITEMS_PER_SLIDE,
+    currentSlide * ITEMS_PER_SLIDE + ITEMS_PER_SLIDE
+  );
 
   return (
-    <section id="skills" className="py-24 relative overflow-hidden">
-      {/* Subtle Background Glow */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-500/10 blur-[130px] rounded-full pointer-events-none" />
+    <section 
+      id="skills" 
+      className="relative w-full bg-[#080B11] text-white py-24 sm:py-28 px-6 sm:px-12 border-t border-white/10 overflow-hidden select-none"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      {/* ── Animated Cyber Matrix Dots & Node Mesh Background ── */}
+      <div className="absolute inset-0 bg-dots-cyber [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_60%,transparent_100%)] opacity-40 pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-cyan-500/5 blur-[160px] rounded-full pointer-events-none animate-pulse-slow" aria-hidden="true" />
+      <div className="absolute top-10 right-20 w-[300px] h-[300px] bg-sky-400/[0.03] blur-[120px] rounded-full pointer-events-none animate-float" aria-hidden="true" />
+      <div className="absolute bottom-10 left-20 w-[300px] h-[300px] bg-indigo-500/[0.03] blur-[120px] rounded-full pointer-events-none animate-float-delayed" aria-hidden="true" />
 
-      <div className="max-w-6xl mx-auto px-5 relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10">
         
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider">
-            <Terminal className="w-3.5 h-3.5" />
-            <span>Tech Stack & Tools</span>
+        {/* ── Section Header ─────────────────────────────────────── */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 pb-8 border-b border-white/10">
+          <div>
+            <div className="flex items-center gap-2 mb-3 text-xs font-mono tracking-[0.25em] text-slate-400 uppercase">
+              <span className="text-[#00F0FF] font-bold">[ 04 / CAPABILITIES ]</span>
+              <span>&bull;</span>
+              <span>TECH STACK &amp; TOOLS</span>
+            </div>
+            <h2 className="font-display text-4xl sm:text-6xl md:text-7xl uppercase tracking-tight leading-[0.9] text-white">
+              CORE <span className="text-[#00F0FF]">TECHNOLOGIES.</span>
+            </h2>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Keahlian & <span className="text-gradient-cyan">Teknologi Andal</span>
-          </h2>
-          <p className="text-slate-400 text-sm sm:text-base">
-            Perangkat lunak, bahasa pemrograman, dan metodologi yang saya gunakan untuk mewujudkan produk digital nyata.
-          </p>
 
-          {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 pt-4">
-            {categories.map((cat) => (
+          {/* Carousel Controls Header */}
+          <div className="flex items-center gap-4">
+            <span className="font-mono text-xs text-slate-400 tracking-widest">
+              [ {String(currentSlide + 1).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')} ]
+            </span>
+            <div className="flex items-center gap-2">
               <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
-                  activeCategory === cat
-                    ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/20 scale-105'
-                    : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 border border-white/5'
-                }`}
+                onClick={prevSlide}
+                aria-label="Previous Slide"
+                className="w-10 h-10 border border-white/15 hover:border-[#00F0FF] bg-[#0A0E17] hover:bg-[#00F0FF]/10 text-white flex items-center justify-center transition-all duration-200"
               >
-                {cat}
+                <ChevronLeft className="w-5 h-5 text-slate-300 hover:text-[#00F0FF]" />
               </button>
-            ))}
+              <button
+                onClick={nextSlide}
+                aria-label="Next Slide"
+                className="w-10 h-10 border border-white/15 hover:border-[#00F0FF] bg-[#0A0E17] hover:bg-[#00F0FF]/10 text-white flex items-center justify-center transition-all duration-200"
+              >
+                <ChevronRight className="w-5 h-5 text-slate-300 hover:text-[#00F0FF]" />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Skills Grid with Modern Spotlight Cards (No Percentages) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {filteredSkills.map((skill, index) => {
-            const IconComponent = iconMap[skill.icon] || Code2;
-            return (
-              <motion.div
-                key={skill.name}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-              >
-                <SpotlightCard
-                  className="h-full flex flex-col justify-between p-6 border-slate-800/80 hover:border-cyan-500/30 transition-all"
-                  spotlightColor="rgba(56, 189, 248, 0.14)"
-                >
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div className="w-11 h-11 rounded-2xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-colors shadow-inner">
-                        <IconComponent className="w-5 h-5" />
+        {/* ── Fade In / Fade Out Carousel Container ────────────────── */}
+        <div className="relative min-h-[220px] sm:min-h-[200px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 0, scale: 0.98, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.98, y: -12 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+            >
+              {visibleSkills.map((skill, idx) => {
+                const IconComponent = skill.icon;
+                const itemIndex = currentSlide * ITEMS_PER_SLIDE + idx + 1;
+                const formattedNumber = String(itemIndex).padStart(2, '0');
+
+                return (
+                  <motion.div
+                    key={skill.name}
+                    whileHover={{ y: -4, borderColor: 'rgba(0, 240, 255, 0.5)' }}
+                    className="group relative p-7 bg-[#0A0E17] border border-white/10 transition-colors duration-300 flex flex-col justify-between overflow-hidden"
+                  >
+                    {/* Top neon glow line on hover */}
+                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#00F0FF] opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_10px_#00F0FF]" />
+
+                    {/* Top strip: Icon & Index */}
+                    <div className="flex items-center justify-between mb-8">
+                      <div className="w-12 h-12 border border-white/10 group-hover:border-[#00F0FF]/50 bg-[#080B11] flex items-center justify-center text-[#00F0FF] group-hover:shadow-[0_0_20px_rgba(0,240,255,0.2)] transition-all duration-300">
+                        <IconComponent className="w-6 h-6" />
                       </div>
-                      <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-800/80 text-cyan-300 border border-cyan-500/20">
+                      <span className="font-mono text-xs text-slate-600 group-hover:text-slate-400 transition-colors">
+                        /{formattedNumber}
+                      </span>
+                    </div>
+
+                    {/* Bottom strip: Skill Name & Category */}
+                    <div>
+                      <span className="inline-block font-mono text-[10px] uppercase tracking-widest text-slate-400 group-hover:text-[#00F0FF] transition-colors mb-1.5">
                         {skill.category}
                       </span>
-                    </div>
-
-                    <div>
-                      <h3 className="text-base font-bold text-white group-hover:text-cyan-300 transition-colors mb-1.5">
+                      <h3 className="font-display text-2xl sm:text-3xl uppercase tracking-tight text-white group-hover:text-white transition-colors leading-none">
                         {skill.name}
                       </h3>
-                      <p className="text-xs text-slate-400 leading-relaxed">
-                        {skill.description}
-                      </p>
                     </div>
-                  </div>
-
-                  {/* Skill Competency Tags */}
-                  <div className="mt-5 pt-3.5 border-t border-white/5 flex flex-wrap gap-1.5">
-                    {skill.tags?.map((tag, tIdx) => (
-                      <span 
-                        key={tIdx} 
-                        className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-white/[0.04] text-slate-300 border border-white/5"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </SpotlightCard>
-              </motion.div>
-            );
-          })}
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          </AnimatePresence>
         </div>
 
-        {/* Complementary Tools Strip */}
-        <div className="mt-12 p-6 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-white/5 text-cyan-400">
-              <Layers className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="text-sm font-bold text-white">Alur Kerja & Standar Proyek</h4>
-              <p className="text-xs text-slate-400">Responsive Design, Git Version Control, SEO On-page, Performance First</p>
-            </div>
-          </div>
+        {/* ── Slide Progress Bar & Indicators ───────────────────────── */}
+        <div className="flex items-center justify-between mt-10 pt-6 border-t border-white/8">
           <div className="flex items-center gap-2">
-            <span className="text-xs text-emerald-400 font-medium flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4" /> Best Web Practices
-            </span>
+            {Array.from({ length: totalSlides }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentSlide(i)}
+                aria-label={`Go to slide ${i + 1}`}
+                className={`h-1.5 transition-all duration-300 ${
+                  currentSlide === i 
+                    ? 'w-10 bg-[#00F0FF] shadow-[0_0_10px_#00F0FF]' 
+                    : 'w-3 bg-white/20 hover:bg-white/40'
+                }`}
+              />
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2 font-mono text-xs text-slate-500">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF]" />
+            <span className="hidden sm:inline">AUTOPLAY CAROUSEL</span>
+            <span>&bull;</span>
+            <span>HOVER TO PAUSE</span>
+          </div>
+        </div>
+
+        {/* ── Aesthetic Infinite Ticker Ribbon Underneath ─────────── */}
+        <div className="relative mt-12 overflow-hidden border-t border-b border-white/8 py-4">
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#080B11] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#080B11] to-transparent z-10 pointer-events-none" />
+
+          <div className="flex whitespace-nowrap animate-marquee hover:[animation-play-state:paused] cursor-default" style={{ width: 'max-content' }}>
+            {[...SKILLS_LIST, ...SKILLS_LIST].map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <div key={`${item.name}-${index}`} className="inline-flex items-center gap-2.5 mx-6 font-mono text-xs uppercase tracking-widest text-slate-400">
+                  <Icon className="w-3.5 h-3.5 text-[#00F0FF]" />
+                  <span className="text-white font-medium">{item.name}</span>
+                  <span className="text-slate-600">&bull;</span>
+                </div>
+              );
+            })}
           </div>
         </div>
 

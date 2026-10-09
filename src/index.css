@@ -2,57 +2,137 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Base Reset ────────────────────────────────────────────────────── */
 @layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
   html {
-    scroll-behavior: smooth;
+    /* Lenis akan handle smooth scroll, matikan bawaan browser */
+    scroll-behavior: auto;
+    font-family: "Inter", system-ui, sans-serif;
   }
 
-  /* Custom sleek scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
+  body {
+    background-color: #080B11;
+    color: #ffffff;
+    overflow-x: clip;
+    /* Sembunyikan cursor default; kita pakai custom cursor */
+    cursor: none;
   }
-  ::-webkit-scrollbar-track {
-    background: #090D16;
+
+  /* Selection style */
+  ::selection {
+    background-color: rgba(0, 240, 255, 0.25);
+    color: #00F0FF;
   }
-  ::-webkit-scrollbar-thumb {
-    background: #1e293b;
-    border-radius: 9999px;
+
+  /* Hormati prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #38bdf8;
+}
+
+/* ─── Tipografi Utama ───────────────────────────────────────────────── */
+@layer utilities {
+  /* Font display untuk heading besar */
+  .font-display {
+    font-family: "Anton", Impact, system-ui, sans-serif;
+    letter-spacing: 0.02em;
   }
 }
 
-/* Glassmorphism helpers */
-.glass-panel {
-  background: rgba(15, 23, 42, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+/* ─── Scrollbar Tipis ───────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 4px; }
+::-webkit-scrollbar-track  { background: #080B11; }
+::-webkit-scrollbar-thumb  { background: #00F0FF; border-radius: 2px; }
+
+/* ─── Custom Cursor ─────────────────────────────────────────────────── */
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 8px; height: 8px;
+  background: #00F0FF;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
 }
 
-.glass-card {
-  background: rgba(17, 27, 49, 0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 36px; height: 36px;
+  border: 1.5px solid rgba(0, 240, 255, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, transform 0.08s ease, opacity 0.2s ease;
 }
 
-.glass-card:hover {
-  border-color: rgba(56, 189, 248, 0.4);
-  box-shadow: 0 10px 30px -10px rgba(56, 189, 248, 0.15);
+/* Saat hover link/button, cursor membesar */
+.cursor-ring.hovered {
+  width: 64px;
+  height: 64px;
+  border-color: rgba(0, 240, 255, 0.8);
+  background-color: rgba(0, 240, 255, 0.05);
+}
+.cursor-dot.hovered  { opacity: 0; }
+
+/* ─── Scroll Progress Bar ───────────────────────────────────────────── */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: #00F0FF;
+  z-index: 9990;
+  transform-origin: left;
 }
 
-/* Glowing text gradients */
-.text-gradient-cyan {
-  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* ─── Modal Scrollbar Styling ───────────────────────────────────────── */
+.custom-modal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #00F0FF #0A0E17;
 }
 
-.text-gradient-subtle {
-  background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.custom-modal-scroll::-webkit-scrollbar {
+  width: 6px;
 }
+
+.custom-modal-scroll::-webkit-scrollbar-track {
+  background: #0A0E17;
+}
+
+.custom-modal-scroll::-webkit-scrollbar-thumb {
+  background: #00F0FF;
+  border-radius: 3px;
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+}
+
+/* ─── Cyber Subtle Grid Backgrounds ─────────────────────────────────── */
+.bg-grid-cyber {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.bg-dots-cyber {
+  background-image: radial-gradient(rgba(0, 240, 255, 0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ─── Ultra-Subtle Analog Film Grain ───────────────────────────────── */
+.film-grain {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 99;
+  opacity: 0.022;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+

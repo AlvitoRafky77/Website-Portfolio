@@ -2,12 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 /**
- * ThreeCanvas - Ultra-optimized, lightweight 3D Cyber Mesh & Particle Field
+ * ThreeCanvas - Interactive 3D Cyber Mesh & Particle Field
  * Features:
- * - High performance 60FPS with BufferGeometry & PointsMaterial
- * - Responsive mouse tracking with smooth lerp inertia
- * - Auto-pauses render loop when out of viewport (Zero Lag / 0% CPU waste)
- * - pointer-events: none ensures full interactivity with UI buttons & text
+ * - 60FPS BufferGeometry & wireframe rendering
+ * - Interactive mouse tracking with lerp inertia
+ * - Auto-pauses when out of viewport (Zero lag)
+ * - Pure Three.js without external heavy wrappers
  */
 export default function ThreeCanvas() {
   const containerRef = useRef(null);
@@ -19,12 +19,12 @@ export default function ThreeCanvas() {
     // 1. Scene & Camera setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
-      60,
+      55,
       container.clientWidth / container.clientHeight,
       0.1,
       1000
     );
-    camera.position.z = 22;
+    camera.position.z = 24;
 
     // 2. Optimized WebGL Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -36,40 +36,39 @@ export default function ThreeCanvas() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
-    // 3. 3D Object A: Rotating Cyber Icosahedron Wireframe
+    // 3. 3D Object A: Rotating Cyber Torus Knot / Icosahedron Wireframe
     const sphereGeometry = new THREE.IcosahedronGeometry(7.5, 2);
     const wireframeMaterial = new THREE.MeshBasicMaterial({
-      color: 0x38bdf8, // Cyan neon
+      color: 0x00f0ff, // Electric Cyan
       wireframe: true,
       transparent: true,
-      opacity: 0.18,
+      opacity: 0.22,
     });
     const cyberSphere = new THREE.Mesh(sphereGeometry, wireframeMaterial);
     scene.add(cyberSphere);
 
     // Inner Glowing Core Polyhedron
-    const coreGeometry = new THREE.OctahedronGeometry(3.5, 1);
+    const coreGeometry = new THREE.OctahedronGeometry(3.8, 1);
     const coreMaterial = new THREE.MeshBasicMaterial({
-      color: 0x6366f1, // Electric Indigo
+      color: 0x38bdf8, // Sky Cyan
       wireframe: true,
       transparent: true,
-      opacity: 0.28,
+      opacity: 0.35,
     });
     const coreSphere = new THREE.Mesh(coreGeometry, coreMaterial);
     scene.add(coreSphere);
 
-    // 4. 3D Object B: Particle Constellation Starfield
-    const particleCount = 750; // Balanced for high visual density and 0 lag
+    // 4. 3D Object B: Particle Constellation Field
+    const particleCount = 650;
     const particleGeometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
 
-    const cyanColor = new THREE.Color(0x38bdf8);
-    const indigoColor = new THREE.Color(0x818cf8);
+    const cyanColor = new THREE.Color(0x00f0ff);
+    const blueColor = new THREE.Color(0x38bdf8);
 
     for (let i = 0; i < particleCount * 3; i += 3) {
-      // Distribute particles in a 3D sphere volume
-      const radius = 15 + Math.random() * 20;
+      const radius = 14 + Math.random() * 22;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
 
@@ -77,8 +76,7 @@ export default function ThreeCanvas() {
       positions[i + 1] = radius * Math.sin(phi) * Math.sin(theta);
       positions[i + 2] = radius * Math.cos(phi);
 
-      // Alternating cyan and indigo colors
-      const mixColor = Math.random() > 0.4 ? cyanColor : indigoColor;
+      const mixColor = Math.random() > 0.4 ? cyanColor : blueColor;
       colors[i] = mixColor.r;
       colors[i + 1] = mixColor.g;
       colors[i + 2] = mixColor.b;
@@ -87,117 +85,108 @@ export default function ThreeCanvas() {
     particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-    // Create round glowing particle texture using HTML Canvas
+    // Glow dot texture
     const canvas = document.createElement('canvas');
     canvas.width = 32;
     canvas.height = 32;
     const ctx = canvas.getContext('2d');
     const grad = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
     grad.addColorStop(0, 'rgba(255,255,255,1)');
-    grad.addColorStop(0.3, 'rgba(56,189,248,0.8)');
-    grad.addColorStop(1, 'rgba(56,189,248,0)');
+    grad.addColorStop(0.3, 'rgba(0,240,255,0.85)');
+    grad.addColorStop(1, 'rgba(0,240,255,0)');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, 32, 32);
 
     const particleTexture = new THREE.CanvasTexture(canvas);
 
     const particleMaterial = new THREE.PointsMaterial({
-      size: 0.6,
+      size: 0.55,
       map: particleTexture,
       transparent: true,
       vertexColors: true,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
-      opacity: 0.75,
     });
+    const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
+    scene.add(particleSystem);
 
-    const particles = new THREE.Points(particleGeometry, particleMaterial);
-    scene.add(particles);
-
-    // 5. Mouse tracking with smooth lerp
+    // 5. Interactive Mouse Tracking with smooth Lerp inertia
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
     let targetY = 0;
 
-    const handleMouseMove = (event) => {
-      // Normalized coordinates (-1 to 1)
-      const { innerWidth, innerHeight } = window;
-      targetX = (event.clientX / innerWidth - 0.5) * 2;
-      targetY = (event.clientY / innerHeight - 0.5) * 2;
+    const handleMouseMove = (e) => {
+      const rect = container.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+      targetX = x * 1.5;
+      targetY = y * 1.5;
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
-    // 6. Responsive resize handler
-    const handleResize = () => {
-      if (!container) return;
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    };
-
-    window.addEventListener('resize', handleResize, { passive: true });
-
-    // 7. Optimization: Pause render loop when scrolled off-screen
+    // 6. Viewport Visibility Observer (pause when out of view)
     let isVisible = true;
-    let animationFrameId = null;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
-        if (isVisible && !animationFrameId) {
-          animate();
-        }
       },
-      { threshold: 0.05 }
+      { threshold: 0.1 }
     );
     observer.observe(container);
 
-    // 8. Animation Loop
-    const clock = new THREE.Clock();
+    // 7. Animation Render Loop
+    let animationFrameId;
+    let clock = new THREE.Clock();
 
     const animate = () => {
-      if (!isVisible) {
-        animationFrameId = null;
-        return;
-      }
-
       animationFrameId = requestAnimationFrame(animate);
+
+      if (!isVisible) return; // Zero CPU waste when scrolled away
 
       const elapsedTime = clock.getElapsedTime();
 
-      // Smooth mouse lerp
+      // Smooth inertia lerp
       mouseX += (targetX - mouseX) * 0.05;
       mouseY += (targetY - mouseY) * 0.05;
 
-      // Rotate cyber sphere
-      cyberSphere.rotation.y = elapsedTime * 0.15 + mouseX * 0.4;
-      cyberSphere.rotation.x = elapsedTime * 0.08 - mouseY * 0.3;
+      // Rotate objects
+      cyberSphere.rotation.x = elapsedTime * 0.15 + mouseY * 0.4;
+      cyberSphere.rotation.y = elapsedTime * 0.22 + mouseX * 0.5;
 
-      // Counter-rotate inner core
-      coreSphere.rotation.y = -elapsedTime * 0.25 - mouseX * 0.5;
-      coreSphere.rotation.z = elapsedTime * 0.15;
+      coreSphere.rotation.x = -elapsedTime * 0.25 - mouseY * 0.3;
+      coreSphere.rotation.y = -elapsedTime * 0.35 - mouseX * 0.4;
 
-      // Floating drift on particles
-      particles.rotation.y = elapsedTime * 0.04 + mouseX * 0.15;
-      particles.rotation.x = -mouseY * 0.15;
+      particleSystem.rotation.y = elapsedTime * 0.04 + mouseX * 0.1;
+      particleSystem.rotation.x = elapsedTime * 0.02 + mouseY * 0.1;
+
+      // Parallax camera
+      camera.position.x = mouseX * 2.5;
+      camera.position.y = mouseY * 2.0;
+      camera.lookAt(0, 0, 0);
 
       renderer.render(scene, camera);
     };
 
-    // Start loop
     animate();
 
-    // 9. Clean memory cleanup
+    // 8. Handle Window Resize
+    const handleResize = () => {
+      if (!container) return;
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // 9. Cleanup
     return () => {
-      observer.disconnect();
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
+      cancelAnimationFrame(animationFrameId);
 
       sphereGeometry.dispose();
       wireframeMaterial.dispose();
@@ -208,7 +197,7 @@ export default function ThreeCanvas() {
       particleTexture.dispose();
       renderer.dispose();
 
-      if (container && renderer.domElement) {
+      if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
     };
@@ -217,7 +206,7 @@ export default function ThreeCanvas() {
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 pointer-events-none z-0 overflow-hidden"
+      className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden"
       aria-hidden="true"
     />
   );

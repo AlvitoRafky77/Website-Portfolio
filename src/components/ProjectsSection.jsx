@@ -1,409 +1,387 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, useMotionValue, useTransform, AnimatePresence } from 'framer-motion';
 import { 
-  FolderGit2, 
-  ExternalLink, 
+  ArrowUpRight, 
   X, 
-  Sparkles, 
-  CheckCircle, 
-  Layers, 
-  User, 
-  Briefcase,
-  ChevronRight,
-  Eye
+  CheckCircle2,
 } from 'lucide-react';
-import { projectsData, projectCategories } from '../data/portfolioData';
-import TiltCard from './TiltCard';
+import { projectsData } from '../data/portfolioData';
 
-gsap.registerPlugin(ScrollTrigger);
-
-export default function ProjectsSection() {
-  const [activeCategory, setActiveCategory] = useState('Semua');
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [activeModalImage, setActiveModalImage] = useState(null);
-  const sectionRef = useRef(null);
-  const titleRef = useRef(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Smooth header scroll entrance
-      gsap.fromTo(
-        titleRef.current,
-        { opacity: 0, y: 35 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: titleRef.current,
-            start: 'top 85%',
-          },
-        }
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  // Kunci scroll background (termasuk Lenis) saat modal terbuka
-  useEffect(() => {
-    if (selectedProject) {
-      document.body.style.overflow = 'hidden';
-      if (window.__lenis) {
-        window.__lenis.stop();
-      }
-    } else {
-      document.body.style.overflow = '';
-      if (window.__lenis) {
-        window.__lenis.start();
-      }
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-      if (window.__lenis) {
-        window.__lenis.start();
-      }
-    };
-  }, [selectedProject]);
-
-  const handleOpenModal = (project) => {
-    setSelectedProject(project);
-    setActiveModalImage(project.image);
-  };
-
-  const filteredProjects = activeCategory === 'Semua'
-    ? projectsData
-    : projectsData.filter((p) => p.category === activeCategory);
+/* ─── ProjectCard — Full viewport card ───────────────────────────────── */
+function ProjectCard({ project, index, onClick }) {
+  const formattedIndex = String(index + 1).padStart(2, '0');
 
   return (
-    <section id="projects" ref={sectionRef} className="py-24 relative">
-      {/* Background Ambience */}
-      <div className="absolute left-1/2 bottom-1/4 -translate-x-1/2 w-[500px] h-[300px] bg-cyan-600/10 blur-[140px] rounded-full pointer-events-none" />
+    <div
+      className="relative w-[85vw] sm:w-[70vw] lg:w-[55vw] xl:w-[48vw] shrink-0 h-[60vh] sm:h-[62vh] min-h-[420px] max-h-[560px] flex flex-col"
+      style={{ paddingRight: '2rem' }}
+    >
+      {/* Card Container */}
+      <motion.div
+        whileHover={{ y: -6 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        onClick={() => onClick(project)}
+        className="group relative flex flex-col h-full bg-[#0A0E17] border border-white/10 hover:border-[#00F0FF]/40 overflow-hidden cursor-pointer transition-colors duration-300"
+        style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }}
+      >
+        {/* Image Area (top ~55% of card) */}
+        <div className="relative flex-shrink-0 h-[55%] overflow-hidden bg-black/40">
+          {project.image ? (
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+              loading="lazy"
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-[#00F0FF]/10 to-transparent flex items-center justify-center">
+              <span className="font-display text-6xl text-[#00F0FF]/20 uppercase">{formattedIndex}</span>
+            </div>
+          )}
 
-      <div className="max-w-6xl mx-auto px-5 relative z-10">
+          {/* Gradient overlay on image */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E17] via-[#0A0E17]/20 to-transparent" />
 
-        {/* Section Header */}
-        <div ref={titleRef} className="text-center max-w-2xl mx-auto mb-14 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider">
-            <FolderGit2 className="w-3.5 h-3.5" />
-            <span>Portofolio Proyek</span>
+          {/* Index badge top-left */}
+          <div className="absolute top-5 left-5 font-mono text-xs text-[#00F0FF] tracking-widest opacity-70">
+            /{formattedIndex}
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Karya Pilihan & <span className="text-gradient-cyan">Hasil Eksplorasi</span>
-          </h2>
-          <p className="text-slate-400 text-sm sm:text-base">
-            Kumpulan aplikasi web, landing page komersial, serta studi kasus UI/UX yang telah saya selesaikan.
-          </p>
 
-          {/* Category Tabs */}
-          <div className="flex flex-wrap items-center justify-center gap-2 pt-4">
-            {projectCategories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`relative px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
-                  activeCategory === category
-                    ? 'text-slate-950'
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                {activeCategory === category && (
-                  <motion.div
-                    layoutId="category-tab-active"
-                    className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-cyan-300 rounded-xl shadow-lg shadow-cyan-500/25"
-                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{category}</span>
-              </button>
-            ))}
+          {/* Category badge top-right */}
+          <div className="absolute top-5 right-5 px-2.5 py-1 text-[10px] font-mono tracking-widest uppercase text-[#00F0FF] bg-[#00F0FF]/10 border border-[#00F0FF]/25 backdrop-blur-sm">
+            {project.badge || project.category}
           </div>
         </div>
 
-        {/* Projects Grid */}
-        <motion.div 
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        {/* Content Area (bottom ~45%) */}
+        <div className="flex flex-col flex-1 justify-between p-6 sm:p-7">
+          <div>
+            <p className="text-xs font-mono text-slate-400 mb-2 tracking-widest uppercase">
+              {project.client}
+            </p>
+            <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl uppercase tracking-tight text-white group-hover:text-[#00F0FF] transition-colors duration-300 leading-tight mb-3">
+              {project.title}
+            </h3>
+            <p className="text-slate-400 text-sm leading-relaxed font-light line-clamp-2">
+              {project.tagline}
+            </p>
+          </div>
+
+          <div className="flex items-center justify-between mt-6 pt-4 border-t border-white/8">
+            {/* Tech chips */}
+            <div className="flex flex-wrap gap-1.5">
+              {project.techStack.slice(0, 3).map((tech) => (
+                <span key={tech} className="text-[10px] font-mono text-slate-400 px-2 py-0.5 bg-white/[0.03] border border-white/8">
+                  {tech}
+                </span>
+              ))}
+              {project.techStack.length > 3 && (
+                <span className="text-[10px] font-mono text-slate-500 px-1 py-0.5">
+                  +{project.techStack.length - 3}
+                </span>
+              )}
+            </div>
+
+            {/* Reveal button */}
+            <div className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-[#00F0FF] group-hover:border-[#00F0FF] transition-all duration-300 shrink-0">
+              <ArrowUpRight className="w-4 h-4 text-white group-hover:text-black transition-colors" />
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom cyan glow on hover */}
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#00F0FF]/0 via-[#00F0FF] to-[#00F0FF]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[0_0_15px_#00F0FF]" />
+      </motion.div>
+    </div>
+  );
+}
+
+/* ─── Case Study Modal ────────────────────────────────────────────────── */
+function ProjectModal({ project, onClose }) {
+  const [activeGalleryImage, setActiveGalleryImage] = React.useState(project.image);
+
+  React.useEffect(() => {
+    const handleKeyDown = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  return (
+    <div
+      data-lenis-prevent="true"
+      className="fixed inset-0 z-[9990] flex items-center justify-center p-3 sm:p-6 md:p-10 select-auto"
+    >
+      {/* Backdrop */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+        className="absolute inset-0 bg-black/85 backdrop-blur-md"
+      />
+
+      {/* Modal */}
+      <motion.div
+        data-lenis-prevent="true"
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 w-full max-w-4xl h-[90vh] bg-[#0A0E17] border border-white/15 overflow-hidden flex flex-col shadow-[0_20px_60px_rgba(0,0,0,0.9)]"
+      >
+        {/* Sticky Header */}
+        <div className="shrink-0 flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#080B11]">
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-mono tracking-widest text-[#00F0FF] uppercase px-2 py-0.5 bg-[#00F0FF]/10 border border-[#00F0FF]/30">
+              {project.badge || project.category}
+            </span>
+            <span className="text-xs font-mono text-slate-400">{project.client}</span>
+          </div>
+          <button type="button" onClick={onClose} className="p-1.5 text-slate-400 hover:text-white hover:bg-white/10 transition-colors" aria-label="Tutup">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Scrollable Body */}
+        <div
+          data-lenis-prevent="true"
+          onWheel={(e) => e.stopPropagation()}
+          onTouchMove={(e) => e.stopPropagation()}
+          className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-6 sm:p-8 space-y-8 custom-modal-scroll"
         >
-          <AnimatePresence>
-            {filteredProjects.map((project) => (
-              <motion.div
-                key={project.id}
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
-                className="h-full"
-              >
-                <TiltCard className="group rounded-3xl glass-card overflow-hidden flex flex-col justify-between hover:border-cyan-500/40 h-full">
-                <div>
-                  {/* Thumbnail Container */}
-                  <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
+          <div>
+            <h3 className="font-display text-3xl sm:text-5xl uppercase tracking-tight text-white mb-3">{project.title}</h3>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">{project.tagline}</p>
+          </div>
 
-                    {/* Category & Badge Overlay */}
-                    <div className="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap max-w-[90%]">
-                      <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-900/80 backdrop-blur-md border border-white/10 text-cyan-300">
-                        {project.category}
-                      </span>
-                      {project.badge && (
-                        <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold tracking-wider bg-amber-500/20 border border-amber-400/40 text-amber-300 backdrop-blur-md shadow-sm">
-                          ★ {project.badge}
-                        </span>
-                      )}
-                    </div>
+          {activeGalleryImage && (
+            <div className="w-full bg-black/50 border border-white/10 overflow-hidden">
+              <img src={activeGalleryImage} alt={project.title} className="w-full h-auto max-h-[420px] object-contain sm:object-cover mx-auto" />
+            </div>
+          )}
 
-                    {/* Hover quick preview button */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <button
-                        onClick={() => handleOpenModal(project)}
-                        className="px-4 py-2 rounded-xl bg-cyan-400/90 hover:bg-cyan-300 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-xl backdrop-blur-md scale-95 group-hover:scale-100 transition-all"
-                      >
-                        <Eye className="w-3.5 h-3.5" />
-                        <span>Detail Cepat</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Body Content */}
-                  <div className="p-6">
-                    <div className="text-[11px] font-medium text-slate-400 mb-1 flex items-center gap-1.5">
-                      <Briefcase className="w-3 h-3 text-cyan-400" />
-                      <span>{project.client}</span>
-                    </div>
-
-                    <h3 className="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors mb-2">
-                      {project.title}
-                    </h3>
-
-                    <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed mb-4">
-                      {project.overview}
-                    </p>
-
-                    {/* Tech Badges */}
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.techStack.slice(0, 3).map((tech, idx) => (
-                        <span
-                          key={idx}
-                          className="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/5 text-[10px] text-slate-300 font-medium"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                      {project.techStack.length > 3 && (
-                        <span className="px-1.5 py-0.5 rounded-md text-[10px] text-slate-500 font-medium">
-                          +{project.techStack.length - 3}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Footer Action */}
-                <div className="px-6 pb-6 pt-2">
-                  <button
-                    onClick={() => handleOpenModal(project)}
-                    className="w-full py-2.5 px-4 rounded-xl bg-white/5 hover:bg-cyan-500/15 border border-white/10 hover:border-cyan-500/30 text-xs font-semibold text-slate-200 hover:text-cyan-300 flex items-center justify-between transition-all"
-                  >
-                    <span>Pelajari Studi Kasus</span>
-                    <ChevronRight className="w-4 h-4 text-cyan-400 group-hover:translate-x-1 transition-transform" />
+          {project.gallery && project.gallery.length > 1 && (
+            <div>
+              <span className="text-xs font-mono text-slate-400 uppercase tracking-wider block mb-3">GALERI TAMPILAN PROYEK:</span>
+              <div className="grid grid-cols-3 gap-3">
+                {project.gallery.map((item) => (
+                  <button key={item.url} type="button" onClick={() => setActiveGalleryImage(item.url)}
+                    className={`text-left border transition-all p-1 bg-black/40 ${activeGalleryImage === item.url ? 'border-[#00F0FF] shadow-[0_0_10px_rgba(0,240,255,0.4)]' : 'border-white/10 hover:border-white/30 opacity-70 hover:opacity-100'}`}>
+                    <img src={item.url} alt={item.label} className="w-full h-16 sm:h-20 object-cover mb-1" />
+                    <p className="text-[10px] font-mono text-slate-400 line-clamp-1">{item.label}</p>
                   </button>
-                </div>
+                ))}
+              </div>
+            </div>
+          )}
 
-                </TiltCard>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 bg-white/[0.02] border border-white/5 font-mono text-xs">
+            <div><span className="text-slate-500 uppercase block text-[10px]">TIPE</span><span className="text-white font-medium">{project.type || project.category}</span></div>
+            <div><span className="text-slate-500 uppercase block text-[10px]">METODOLOGI</span><span className="text-white font-medium">{project.methodology || 'Agile'}</span></div>
+            <div><span className="text-slate-500 uppercase block text-[10px]">KLIEN</span><span className="text-[#00F0FF] font-medium">{project.client}</span></div>
+          </div>
 
-      </div>
+          <div>
+            <h4 className="text-xs font-mono tracking-widest text-[#00F0FF] uppercase mb-2">RINGKASAN</h4>
+            <p className="text-slate-300 text-sm leading-relaxed font-light">{project.overview}</p>
+          </div>
 
-      {/* Project Detail Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-hidden">
-            {/* Backdrop */}
+          {project.highlights && (
+            <div>
+              <h4 className="text-xs font-mono tracking-widest text-[#00F0FF] uppercase mb-3">POIN KUNCI</h4>
+              <div className="grid grid-cols-1 gap-2.5">
+                {project.highlights.map((item, i) => (
+                  <div key={i} className="flex items-start gap-2.5 text-xs text-slate-300 bg-white/[0.01] p-3 border border-white/5">
+                    <CheckCircle2 className="w-4 h-4 text-[#00F0FF] shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div>
+            <h4 className="text-xs font-mono tracking-widest text-slate-400 uppercase mb-2">TEKNOLOGI</h4>
+            <div className="flex flex-wrap gap-2">
+              {project.techStack.map((tech) => (
+                <span key={tech} className="text-xs font-mono text-[#00F0FF] px-3 py-1 bg-[#00F0FF]/10 border border-[#00F0FF]/20">{tech}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Sticky Footer */}
+        <div className="shrink-0 p-4 border-t border-white/10 bg-[#080B11] flex justify-between items-center text-xs font-mono text-slate-400">
+          <span className="hidden sm:inline">PORTFOLIO CASE STUDY</span>
+          <span className="text-[10px] text-slate-500">Tekan ESC atau klik luar modal</span>
+          <button type="button" onClick={onClose} className="px-5 py-2 bg-[#00F0FF] text-black font-bold uppercase tracking-wider hover:bg-white transition-colors">
+            Tutup [ESC]
+          </button>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+/* ─── Main Projects Section — Horizontal Scroll Driven ───────────────── */
+export default function ProjectsSection() {
+  const [selectedProject, setSelectedProject] = useState(null);
+  const sectionRef = useRef(null);
+  const trackRef = useRef(null);
+
+  const totalProjects = projectsData.length;
+
+  // Manual scroll progress MotionValue synced with Lenis
+  const scrollProgress = useMotionValue(0);
+
+  useEffect(() => {
+    function updateProgress() {
+      const el = sectionRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const sectionH = el.offsetHeight - window.innerHeight;
+      // How far the top of the section has traveled above the viewport
+      const traveled = -rect.top;
+      const progress = Math.max(0, Math.min(1, traveled / sectionH));
+      scrollProgress.set(progress);
+    }
+
+    // Listen to Lenis scroll events for smooth updates
+    const lenis = window.__lenis;
+    if (lenis) {
+      lenis.on('scroll', updateProgress);
+    }
+    // Also listen to native scroll as fallback
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    return () => {
+      if (lenis) lenis.off('scroll', updateProgress);
+      window.removeEventListener('scroll', updateProgress);
+    };
+  }, [scrollProgress]);
+
+  // Scroll vertikal → translate horizontal (jarak proporsional tanpa gap kosong)
+  const scrollDistance = (totalProjects - 1) * 52;
+  const x = useTransform(
+    scrollProgress,
+    [0, 1],
+    ['0vw', `-${scrollDistance}vw`]
+  );
+
+  // Entry animation: subtle smooth settle
+  const entryOpacity = useTransform(scrollProgress, [0, 0.03], [0.9, 1]);
+  const entryY       = useTransform(scrollProgress, [0, 0.05], [15, 0]);
+
+  // Modal scroll lock
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+      if (window.__lenis) window.__lenis.stop();
+    } else {
+      document.body.style.overflow = '';
+      if (window.__lenis) window.__lenis.start();
+    }
+  }, [selectedProject]);
+
+  return (
+    <>
+      {/* ─── Section Wrapper — tinggi proporsional, tanpa gap berlebih ── */}
+      <section
+        ref={sectionRef}
+        id="works"
+        className="relative border-t border-white/10"
+        style={{ height: `calc(100vh + ${scrollDistance}vw)` }}
+      >
+        {/* ─── Sticky Viewport — muat pas di bawah Navbar ──────────── */}
+        <div className="sticky top-0 h-screen overflow-hidden bg-[#080B11] flex flex-col pt-14 sm:pt-16 pb-14 relative">
+
+          {/* ── Animated Cyber Aurora Ambient Glow (Theme: Aurora Drift) ── */}
+          <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 h-[340px] bg-gradient-to-r from-transparent via-[#00F0FF]/[0.035] to-blue-500/[0.03] blur-[130px] pointer-events-none animate-pulse-slow" aria-hidden="true" />
+          <div className="absolute top-16 left-1/4 w-[360px] h-[360px] bg-cyan-400/[0.025] blur-[140px] rounded-full animate-float pointer-events-none" aria-hidden="true" />
+          <div className="absolute bottom-12 right-1/4 w-[380px] h-[380px] bg-blue-500/[0.025] blur-[150px] rounded-full animate-float-delayed pointer-events-none" aria-hidden="true" />
+
+          {/* ── Section Header — slides up smoothly ──────────────── */}
+          <motion.div
+            style={{ opacity: entryOpacity, y: entryY }}
+            className="shrink-0 max-w-7xl mx-auto w-full px-6 sm:px-12 pt-0 pb-3 flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/8"
+          >
+            <div>
+              <div className="flex items-center gap-2 mb-2 text-xs font-mono tracking-[0.25em] text-slate-400 uppercase">
+                <span className="text-[#00F0FF] font-bold">[ 03 / SELECTED WORKS ]</span>
+                <span>&bull;</span>
+                <span>SCROLL TO EXPLORE &rarr;</span>
+              </div>
+              <h2 className="font-display text-4xl sm:text-6xl md:text-7xl uppercase tracking-tight leading-[0.9] text-white">
+                CRAFTED <span className="text-[#00F0FF] drop-shadow-[0_0_30px_rgba(0,240,255,0.4)]">PROJECTS.</span>
+              </h2>
+            </div>
+
+            {/* Scroll Progress Indicator */}
+            <div className="flex items-center gap-3 shrink-0">
+              <div className="w-32 sm:w-48 h-[2px] bg-white/10 relative overflow-hidden">
+                <motion.div
+                  className="absolute top-0 left-0 h-full bg-[#00F0FF] shadow-[0_0_8px_#00F0FF]"
+                  style={{ scaleX: scrollProgress, transformOrigin: 'left' }}
+                />
+              </div>
+              <span className="text-xs font-mono text-slate-400 whitespace-nowrap">
+                {totalProjects} PROJECTS
+              </span>
+            </div>
+          </motion.div>
+
+          {/* ── Horizontal Sliding Track — slides up on entry ─────── */}
+          <motion.div
+            style={{ opacity: entryOpacity, y: entryY }}
+            className="flex-1 min-h-0 flex items-center overflow-visible px-6 sm:px-12 pt-3 sm:pt-4 pb-1 sm:pb-2"
+          >
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedProject(null)}
-              className="fixed inset-0 bg-slate-950/85 backdrop-blur-md"
-            />
-
-            {/* Modal Dialog Content */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              data-lenis-prevent
-              className="relative w-full max-w-3xl bg-slate-900 border border-white/15 rounded-3xl shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col overscroll-contain"
+              ref={trackRef}
+              style={{ x }}
+              className="flex items-stretch h-full gap-0"
             >
-              {/* Modal Header */}
-              <div className="p-5 border-b border-white/10 flex items-center justify-between bg-slate-900/90 backdrop-blur-md sticky top-0 z-20">
-                <div className="flex items-center gap-2">
-                  <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
-                    {selectedProject.category}
-                  </span>
-                  <h3 className="text-base sm:text-lg font-bold text-white truncate max-w-md">
-                    {selectedProject.title}
-                  </h3>
-                </div>
-                <button
-                  onClick={() => setSelectedProject(null)}
-                  className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
-                  aria-label="Tutup"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
+              {projectsData.map((project, idx) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  index={idx}
+                  onClick={(p) => setSelectedProject(p)}
+                />
+              ))}
 
-              {/* Modal Scrollable Body */}
-              <div className="p-6 overflow-y-auto space-y-6">
-                {/* Hero & Gallery Display */}
-                <div className="space-y-3">
-                  <div className="rounded-2xl overflow-hidden border border-white/10 shadow-lg bg-slate-950">
-                    <img
-                      src={activeModalImage || selectedProject.image}
-                      alt={selectedProject.title}
-                      className="w-full h-auto object-cover max-h-[420px] transition-all duration-300"
-                    />
+              {/* End-of-track CTA card */}
+              <div className="w-[35vw] sm:w-[28vw] lg:w-[22vw] shrink-0 h-full flex items-center justify-center">
+                <div className="text-center space-y-4">
+                  <div className="w-16 h-16 rounded-full border border-[#00F0FF]/40 flex items-center justify-center mx-auto">
+                    <span className="font-display text-2xl text-[#00F0FF]">↑</span>
                   </div>
-
-                  {/* Multi-image Gallery Selector */}
-                  {selectedProject.gallery && selectedProject.gallery.length > 1 && (
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
-                      {selectedProject.gallery.map((item, idx) => {
-                        const isCurrent = (activeModalImage || selectedProject.image) === item.url;
-                        return (
-                          <button
-                            key={idx}
-                            onClick={() => setActiveModalImage(item.url)}
-                            className={`p-1.5 rounded-xl text-left border transition-all ${
-                              isCurrent
-                                ? 'bg-cyan-500/15 border-cyan-400 ring-2 ring-cyan-500/20'
-                                : 'bg-slate-950/60 border-white/10 hover:border-white/30 opacity-70 hover:opacity-100'
-                            }`}
-                          >
-                            <img
-                              src={item.url}
-                              alt={item.label}
-                              className="w-full h-16 object-cover rounded-lg mb-1.5"
-                            />
-                            <span className="block text-[10px] text-slate-300 font-medium line-clamp-1">
-                              {item.label}
-                            </span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-
-                {/* Info Bar */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 rounded-2xl bg-white/[0.03] border border-white/5">
-                  <div>
-                    <span className="text-[11px] text-slate-400 block font-medium">Klien / Lembaga</span>
-                    <span className="text-xs font-semibold text-white truncate block">{selectedProject.client}</span>
-                  </div>
-                  <div>
-                    <span className="text-[11px] text-slate-400 block font-medium">Tipe Proyek</span>
-                    <span className="text-xs font-semibold text-white truncate block">{selectedProject.type}</span>
-                  </div>
-                  <div>
-                    <span className="text-[11px] text-slate-400 block font-medium">Kategori Utama</span>
-                    <span className="text-xs font-semibold text-cyan-400">{selectedProject.category}</span>
-                  </div>
-                  <div>
-                    <span className="text-[11px] text-slate-400 block font-medium">Metodologi</span>
-                    <span className="text-xs font-semibold text-indigo-300">{selectedProject.methodology || "SDLC"}</span>
-                  </div>
-                </div>
-
-                {/* Deskripsi & Ringkasan */}
-                <div className="space-y-2">
-                  <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-cyan-400" />
-                    <span>Ringkasan Solusi</span>
-                  </h4>
-                  <p className="text-sm text-slate-300 leading-relaxed">
-                    {selectedProject.overview}
+                  <p className="font-display text-2xl sm:text-3xl uppercase tracking-tight text-slate-500">
+                    SCROLL UP<br/>TO RESTART
                   </p>
+                  <div className="w-12 h-[1px] bg-[#00F0FF]/30 mx-auto" />
                 </div>
-
-                {/* Key Highlights */}
-                {selectedProject.highlights && (
-                  <div className="space-y-2.5">
-                    <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                      <CheckCircle className="w-4 h-4 text-emerald-400" />
-                      <span>Sorotan Utama & Fitur</span>
-                    </h4>
-                    <div className="grid grid-cols-1 gap-2">
-                      {selectedProject.highlights.map((h, i) => (
-                        <div
-                          key={i}
-                          className="p-3 rounded-xl bg-white/[0.02] border border-white/5 text-xs text-slate-300 flex items-start gap-2.5"
-                        >
-                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0 mt-1.5" />
-                          <span>{h}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Tech Stack Pills */}
-                <div className="space-y-2">
-                  <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                    <Layers className="w-4 h-4 text-indigo-400" />
-                    <span>Teknologi yang Dipakai</span>
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedProject.techStack.map((tech, i) => (
-                      <span
-                        key={i}
-                        className="px-3 py-1 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-xs font-medium text-cyan-300"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Modal Footer */}
-              <div className="p-5 border-t border-white/10 bg-slate-900/80 backdrop-blur-md flex flex-wrap items-center justify-end gap-3">
-                <button
-                  onClick={() => setSelectedProject(null)}
-                  className="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-semibold text-slate-300 transition-colors"
-                >
-                  Tutup
-                </button>
-                <a
-                  href="#contact"
-                  onClick={() => setSelectedProject(null)}
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-cyan-300 text-slate-950 font-bold text-xs shadow-lg shadow-cyan-500/20 hover:scale-[1.02] transition-all"
-                >
-                  Diskusi Proyek Mirip Ini
-                </a>
               </div>
             </motion.div>
+          </motion.div>
+
+          {/* ── Bottom Hint Bar ──────────────────────────────────── */}
+          <div className="shrink-0 border-t border-white/8 px-6 sm:px-12 py-2 flex justify-between items-center text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+            <span>SCROLL DOWN TO ADVANCE &darr;</span>
+            <span>CLICK CARD FOR CASE STUDY &rarr;</span>
           </div>
+        </div>
+      </section>
+
+      {/* ─── Case Study Modal ────────────────────────────────────────── */}
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
         )}
       </AnimatePresence>
-
-    </section>
+    </>
   );
 }
