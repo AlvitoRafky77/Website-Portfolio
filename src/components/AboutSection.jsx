@@ -16,6 +16,7 @@ import {
   ArrowUpRight
 } from 'lucide-react';
 import { personalInfo, educationHistory, experienceData, certificationsData } from '../data/portfolioData';
+import ThreeGlobe from './ThreeGlobe';
 
 export default function AboutSection() {
   const [activeTab, setActiveTab] = useState('experience');
@@ -92,21 +93,26 @@ export default function AboutSection() {
             </div>
           </motion.div>
 
-          {/* Bento 2: Quick Info Bio Card (4 Cols) */}
+          {/* Bento 2: Quick Info Bio Card with 3D Cyber Globe (4 Cols) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="md:col-span-4 p-6 sm:p-8 rounded-3xl glass-card flex flex-col justify-between"
+            className="md:col-span-4 p-6 sm:p-8 rounded-3xl glass-card flex flex-col justify-between relative overflow-hidden group"
           >
-            <div>
+            {/* Interactive 3D Cyber Globe Embedded in background of the card */}
+            <div className="absolute -top-10 -right-10 w-44 h-44 opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+              <ThreeGlobe />
+            </div>
+
+            <div className="relative z-10">
               <h3 className="text-base font-bold text-white mb-5 flex items-center gap-2">
                 <span>Informasi Kunci</span>
               </h3>
               
               <div className="space-y-3.5">
-                <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 flex items-start gap-3">
+                <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 flex items-start gap-3 backdrop-blur-md">
                   <GraduationCap className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                   <div>
                     <span className="text-[11px] text-slate-400 block font-medium">Pendidikan & IPK</span>
@@ -115,7 +121,7 @@ export default function AboutSection() {
                   </div>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 flex items-start gap-3">
+                <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 flex items-start gap-3 backdrop-blur-md">
                   <MapPin className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
                   <div>
                     <span className="text-[11px] text-slate-400 block font-medium">Domisili</span>
@@ -123,7 +129,7 @@ export default function AboutSection() {
                   </div>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 flex items-start gap-3">
+                <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 flex items-start gap-3 backdrop-blur-md">
                   <Mail className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                   <div className="min-w-0">
                     <span className="text-[11px] text-slate-400 block font-medium">Email</span>
@@ -138,7 +144,7 @@ export default function AboutSection() {
               </div>
             </div>
 
-            <div className="mt-6 pt-5 border-t border-white/5">
+            <div className="mt-6 pt-5 border-t border-white/5 relative z-10">
               <span className="text-[11px] text-slate-400 uppercase tracking-wider block mb-1">Status Ketersediaan</span>
               <p className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
