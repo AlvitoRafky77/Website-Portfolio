@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
   FolderGit2, 
   ExternalLink, 
@@ -15,10 +17,36 @@ import {
 import { projectsData, projectCategories } from '../data/portfolioData';
 import TiltCard from './TiltCard';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function ProjectsSection() {
   const [activeCategory, setActiveCategory] = useState('Semua');
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeModalImage, setActiveModalImage] = useState(null);
+  const sectionRef = useRef(null);
+  const titleRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Smooth header scroll entrance
+      gsap.fromTo(
+        titleRef.current,
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: 'top 85%',
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   // Kunci scroll background (termasuk Lenis) saat modal terbuka
   useEffect(() => {
@@ -52,14 +80,14 @@ export default function ProjectsSection() {
     : projectsData.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="projects" className="py-24 relative">
+    <section id="projects" ref={sectionRef} className="py-24 relative">
       {/* Background Ambience */}
       <div className="absolute left-1/2 bottom-1/4 -translate-x-1/2 w-[500px] h-[300px] bg-cyan-600/10 blur-[140px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-5 relative z-10">
 
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
+        <div ref={titleRef} className="text-center max-w-2xl mx-auto mb-14 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider">
             <FolderGit2 className="w-3.5 h-3.5" />
             <span>Portofolio Proyek</span>

@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
   GraduationCap, 
   MapPin, 
@@ -16,20 +18,67 @@ import {
   ArrowUpRight
 } from 'lucide-react';
 import { personalInfo, educationHistory, experienceData, certificationsData } from '../data/portfolioData';
-import ThreeGlobe from './ThreeGlobe';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutSection() {
   const [activeTab, setActiveTab] = useState('experience');
+  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const bentoRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header smooth scroll reveal with subtle scale
+      gsap.fromTo(
+        headerRef.current,
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: 'top 85%',
+          },
+        }
+      );
+
+      // Staggered Bento Cards Entrance
+      const cards = bentoRef.current?.querySelectorAll('.gsap-bento-card');
+      if (cards && cards.length) {
+        gsap.fromTo(
+          cards,
+          { opacity: 0, y: 45, scale: 0.96 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.85,
+            stagger: 0.15,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: bentoRef.current,
+              start: 'top 80%',
+            },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="about" className="py-24 relative">
+    <section id="about" ref={sectionRef} className="py-24 relative">
       {/* Background Ambience */}
       <div className="absolute left-1/4 top-1/3 w-[500px] h-[300px] bg-indigo-600/10 blur-[130px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-5 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <div ref={headerRef} className="text-center max-w-2xl mx-auto mb-16 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Tentang & Rekam Jejak</span>
@@ -43,15 +92,11 @@ export default function AboutSection() {
         </div>
 
         {/* Bento Top Row */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 mb-8">
+        <div ref={bentoRef} className="grid grid-cols-1 md:grid-cols-12 gap-5 mb-8">
 
           {/* Bento 1: Professional Summary (8 Cols) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="md:col-span-8 p-6 sm:p-8 rounded-3xl glass-card flex flex-col justify-between"
+          <div
+            className="gsap-bento-card md:col-span-8 p-6 sm:p-8 rounded-3xl glass-card flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between mb-5">
@@ -91,22 +136,13 @@ export default function AboutSection() {
                 Tahun 2025
               </span>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Bento 2: Quick Info Bio Card with 3D Cyber Globe (4 Cols) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="md:col-span-4 p-6 sm:p-8 rounded-3xl glass-card flex flex-col justify-between relative overflow-hidden group"
+          {/* Bento 2: Quick Info Bio Card (4 Cols) */}
+          <div
+            className="gsap-bento-card md:col-span-4 p-6 sm:p-8 rounded-3xl glass-card flex flex-col justify-between"
           >
-            {/* Interactive 3D Cyber Globe Embedded in background of the card */}
-            <div className="absolute -top-10 -right-10 w-44 h-44 opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-              <ThreeGlobe />
-            </div>
-
-            <div className="relative z-10">
+            <div>
               <h3 className="text-base font-bold text-white mb-5 flex items-center gap-2">
                 <span>Informasi Kunci</span>
               </h3>
@@ -151,7 +187,7 @@ export default function AboutSection() {
                 Terbuka untuk Full-Time & Project Roles
               </p>
             </div>
-          </motion.div>
+          </div>
 
         </div>
 
