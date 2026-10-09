@@ -91,10 +91,10 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, '#contact')}
-              className="flex items-center gap-1.5 px-4 py-1.5 bg-[#00F0FF] text-black font-mono text-xs uppercase font-bold tracking-wider hover:bg-white transition-all duration-200 shadow-[0_0_15px_rgba(0,240,255,0.3)] hover:shadow-[0_0_20px_rgba(255,255,255,0.5)]"
+              className="flex items-center gap-1.5 px-4 py-1.5 bg-[#00F0FF] text-black font-mono text-xs uppercase font-bold tracking-wider hover:bg-white hover:-translate-y-0.5 active:scale-95 transition-all duration-200 shadow-[0_0_15px_rgba(0,240,255,0.3)] hover:shadow-[0_0_20px_rgba(255,255,255,0.5)]"
             >
               <span>TALK</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           </div>
 

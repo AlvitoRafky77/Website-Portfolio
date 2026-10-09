@@ -111,7 +111,7 @@ export default function ContactSection() {
         </div>
 
         {/* ── Heroic Primary Email Banner (The Aesthetic Centerpiece) ── */}
-        <div className="relative p-8 sm:p-12 bg-[#0A0E17] border border-white/10 mb-8 overflow-hidden group hover:border-[#00F0FF]/40 transition-colors duration-300">
+        <div className="relative p-8 sm:p-12 bg-[#0A0E17] border border-white/10 mb-8 overflow-hidden group hover:border-[#00F0FF]/40 hover:-translate-y-1 transition-all duration-300 shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent shadow-[0_0_15px_#00F0FF]" />
 
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
@@ -132,7 +132,7 @@ export default function ContactSection() {
             <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 shrink-0">
               <button
                 onClick={handleCopyEmail}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 font-mono text-xs uppercase tracking-widest border border-white/15 bg-white/[0.03] hover:border-[#00F0FF] hover:bg-[#00F0FF]/10 text-white transition-all duration-200"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 font-mono text-xs uppercase tracking-widest border border-white/15 bg-white/[0.03] hover:border-[#00F0FF] hover:bg-[#00F0FF]/10 hover:-translate-y-0.5 active:scale-95 text-white transition-all duration-200"
               >
                 {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-[#00F0FF]" />}
                 <span>{copied ? 'COPIED TO CLIPBOARD' : 'COPY EMAIL'}</span>
@@ -140,7 +140,7 @@ export default function ContactSection() {
 
               <a
                 href={`mailto:${personalInfo.email}?subject=Project Collaboration Inquiry`}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 font-mono text-xs uppercase tracking-widest bg-[#00F0FF] text-black font-bold hover:bg-[#00F0FF]/90 transition-all duration-200 shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 font-mono text-xs uppercase tracking-widest bg-[#00F0FF] text-black font-bold hover:bg-white hover:-translate-y-0.5 active:scale-95 transition-all duration-200 shadow-[0_0_20px_rgba(0,240,255,0.3)]"
               >
                 <span>OPEN EMAIL APP</span>
                 <ArrowUpRight className="w-4 h-4" />
@@ -160,19 +160,19 @@ export default function ContactSection() {
                 target={channel.isExternal ? '_blank' : undefined}
                 rel={channel.isExternal ? 'noopener noreferrer' : undefined}
                 download={channel.download}
-                className="group relative p-6 bg-[#0A0E17] border border-white/10 hover:border-[#00F0FF]/50 transition-all duration-300 flex flex-col justify-between"
+                className="group relative p-6 bg-[#0A0E17] border border-white/10 hover:border-[#00F0FF]/50 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
               >
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#00F0FF] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 <div>
                   <div className="flex items-center justify-between mb-5">
-                    <div className="w-10 h-10 border border-white/10 group-hover:border-[#00F0FF]/40 bg-[#080B11] flex items-center justify-center text-[#00F0FF] transition-colors">
-                      <Icon className="w-5 h-5" />
+                    <div className="w-10 h-10 border border-white/10 group-hover:border-[#00F0FF]/40 bg-[#080B11] flex items-center justify-center text-[#00F0FF] group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(0,240,255,0.2)] transition-all duration-300">
+                      <Icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                     </div>
                     <span className="font-mono text-xs text-slate-500">/{channel.num}</span>
                   </div>
 
-                  <h4 className="font-display text-lg uppercase tracking-tight text-white group-hover:text-[#00F0FF] transition-colors mb-1">
+                  <h4 className="font-display text-lg uppercase tracking-tight text-white group-hover:text-[#00F0FF] group-hover:translate-x-1 transition-all duration-300 mb-1">
                     {channel.title}
                   </h4>
                   <p className="font-mono text-xs text-[#00F0FF]/90 mb-2 truncate">
@@ -185,7 +185,7 @@ export default function ContactSection() {
 
                 <div className="pt-3 border-t border-white/8 flex items-center justify-between font-mono text-[11px] uppercase tracking-wider text-slate-400 group-hover:text-white transition-colors">
                   <span>{channel.actionText}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-[#00F0FF] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#00F0FF] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                 </div>
               </a>
             );

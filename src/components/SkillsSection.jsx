@@ -93,16 +93,16 @@ export default function SkillsSection() {
               <button
                 onClick={prevSlide}
                 aria-label="Previous Slide"
-                className="w-10 h-10 border border-white/15 hover:border-[#00F0FF] bg-[#0A0E17] hover:bg-[#00F0FF]/10 text-white flex items-center justify-center transition-all duration-200"
+                className="w-10 h-10 border border-white/15 hover:border-[#00F0FF] bg-[#0A0E17] hover:bg-[#00F0FF]/10 hover:scale-105 active:scale-95 text-white flex items-center justify-center transition-all duration-200"
               >
-                <ChevronLeft className="w-5 h-5 text-slate-300 hover:text-[#00F0FF]" />
+                <ChevronLeft className="w-5 h-5 text-slate-300 hover:text-[#00F0FF] transition-colors" />
               </button>
               <button
                 onClick={nextSlide}
                 aria-label="Next Slide"
-                className="w-10 h-10 border border-white/15 hover:border-[#00F0FF] bg-[#0A0E17] hover:bg-[#00F0FF]/10 text-white flex items-center justify-center transition-all duration-200"
+                className="w-10 h-10 border border-white/15 hover:border-[#00F0FF] bg-[#0A0E17] hover:bg-[#00F0FF]/10 hover:scale-105 active:scale-95 text-white flex items-center justify-center transition-all duration-200"
               >
-                <ChevronRight className="w-5 h-5 text-slate-300 hover:text-[#00F0FF]" />
+                <ChevronRight className="w-5 h-5 text-slate-300 hover:text-[#00F0FF] transition-colors" />
               </button>
             </div>
           </div>
@@ -128,7 +128,7 @@ export default function SkillsSection() {
                   <motion.div
                     key={skill.name}
                     whileHover={{ y: -4, borderColor: 'rgba(0, 240, 255, 0.5)' }}
-                    className="group relative p-7 bg-[#0A0E17] border border-white/10 transition-colors duration-300 flex flex-col justify-between overflow-hidden"
+                    className="group relative p-7 bg-[#0A0E17] border border-white/10 transition-colors duration-300 flex flex-col justify-between overflow-hidden cursor-default"
                   >
                     {/* Top neon glow line on hover */}
                     <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#00F0FF] opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_10px_#00F0FF]" />
@@ -136,7 +136,7 @@ export default function SkillsSection() {
                     {/* Top strip: Icon & Index */}
                     <div className="flex items-center justify-between mb-8">
                       <div className="w-12 h-12 border border-white/10 group-hover:border-[#00F0FF]/50 bg-[#080B11] flex items-center justify-center text-[#00F0FF] group-hover:shadow-[0_0_20px_rgba(0,240,255,0.2)] transition-all duration-300">
-                        <IconComponent className="w-6 h-6" />
+                        <IconComponent className="w-6 h-6 transition-transform duration-300 group-hover:scale-110" />
                       </div>
                       <span className="font-mono text-xs text-slate-600 group-hover:text-slate-400 transition-colors">
                         /{formattedNumber}
@@ -170,7 +170,7 @@ export default function SkillsSection() {
                 className={`h-1.5 transition-all duration-300 ${
                   currentSlide === i 
                     ? 'w-10 bg-[#00F0FF] shadow-[0_0_10px_#00F0FF]' 
-                    : 'w-3 bg-white/20 hover:bg-white/40'
+                    : 'w-3 bg-white/20 hover:bg-white/40 hover:w-5'
                 }`}
               />
             ))}

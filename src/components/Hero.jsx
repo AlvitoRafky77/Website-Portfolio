@@ -119,19 +119,19 @@ export default function Hero() {
             <a
               href="#works"
               onClick={(e) => handleScrollTo(e, '#works')}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#00F0FF] text-black font-mono text-xs uppercase font-bold tracking-wider hover:bg-white transition-all duration-200 shadow-[0_0_25px_rgba(0,240,255,0.4)]"
+              className="group flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#00F0FF] text-black font-mono text-xs uppercase font-bold tracking-wider hover:bg-white hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 shadow-[0_0_25px_rgba(0,240,255,0.4)]"
             >
               <span>VIEW WORKS</span>
-              <ArrowDownRight className="w-4 h-4" />
+              <ArrowDownRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
             </a>
 
             <a
               href={personalInfo.cvUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-6 py-3.5 border border-white/20 bg-white/[0.02] hover:bg-white/10 hover:border-[#00F0FF] text-white font-mono text-xs uppercase tracking-wider transition-all duration-200"
+              className="group flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-6 py-3.5 border border-white/20 bg-white/[0.02] hover:bg-white/10 hover:border-[#00F0FF] hover:-translate-y-0.5 active:translate-y-0 text-white font-mono text-xs uppercase tracking-wider transition-all duration-300"
             >
-              <Download className="w-3.5 h-3.5 text-[#00F0FF]" />
+              <Download className="w-3.5 h-3.5 text-[#00F0FF] transition-transform duration-300 group-hover:-translate-y-0.5" />
               <span>RESUME</span>
             </a>
           </motion.div>
@@ -147,7 +147,7 @@ export default function Hero() {
       >
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#00F0FF] shadow-[0_0_8px_#00F0FF]" />
+            <span className="w-2 h-2 rounded-full bg-[#00F0FF] shadow-[0_0_8px_#00F0FF] animate-pulse" />
             <span className="text-white font-medium">10+ PROJECTS BUILT</span>
           </div>
           <div className="hidden sm:inline-block text-slate-600">&bull;</div>
@@ -160,10 +160,10 @@ export default function Hero() {
         <a
           href="#works"
           onClick={(e) => handleScrollTo(e, '#works')}
-          className="group inline-flex items-center gap-2 text-slate-400 hover:text-[#00F0FF] transition-colors"
+          className="group inline-flex items-center gap-2 text-slate-400 hover:text-[#00F0FF] transition-colors duration-300"
         >
           <span className="tracking-widest uppercase text-[11px]">SCROLL TO EXPLORE</span>
-          <span className="inline-block transition-transform group-hover:translate-y-1">&darr;</span>
+          <span className="inline-block transition-transform duration-300 group-hover:translate-y-1.5 animate-bounce-subtle">&darr;</span>
         </a>
       </motion.div>
     </section>

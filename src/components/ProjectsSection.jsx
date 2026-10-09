@@ -84,7 +84,7 @@ function ProjectCard({ project, index, onClick }) {
 
             {/* Reveal button */}
             <div className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-[#00F0FF] group-hover:border-[#00F0FF] transition-all duration-300 shrink-0">
-              <ArrowUpRight className="w-4 h-4 text-white group-hover:text-black transition-colors" />
+              <ArrowUpRight className="w-4 h-4 text-white group-hover:text-black group-hover:rotate-45 transition-all duration-300" />
             </div>
           </div>
         </div>

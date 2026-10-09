@@ -182,9 +182,9 @@ export default function AboutSection() {
               { num: '10+', label: 'Projects' },
               { num: '2026', label: 'Graduate' },
             ].map(({ num, label }) => (
-              <div key={label} className="text-center">
-                <div className="font-display text-3xl sm:text-4xl text-[#00F0FF]">{num}</div>
-                <div className="text-[10px] font-mono tracking-widest text-slate-400 uppercase mt-1">{label}</div>
+              <div key={label} className="text-center group cursor-default">
+                <div className="font-display text-3xl sm:text-4xl text-[#00F0FF] group-hover:scale-105 transition-transform duration-300">{num}</div>
+                <div className="text-[10px] font-mono tracking-widest text-slate-400 uppercase mt-1 group-hover:text-slate-200 transition-colors duration-300">{label}</div>
               </div>
             ))}
           </motion.div>
@@ -291,9 +291,9 @@ export default function AboutSection() {
               ].map(({ icon, label, value }) => (
                 <div
                   key={label}
-                  className="flex items-center gap-3 p-3 bg-white/[0.02] border border-white/8 hover:border-[#00F0FF]/40 transition-colors"
+                  className="flex items-center gap-3 p-3 bg-white/[0.02] border border-white/8 hover:border-[#00F0FF]/40 hover:-translate-y-0.5 hover:bg-[#00F0FF]/[0.02] transition-all duration-300 group cursor-default"
                 >
-                  <span className="text-[#00F0FF] shrink-0">{icon}</span>
+                  <span className="text-[#00F0FF] shrink-0 group-hover:scale-110 transition-transform duration-300">{icon}</span>
                   <div>
                     <div className="text-[9px] font-mono text-slate-500 tracking-widest uppercase">{label}</div>
                     <div className="text-xs text-white font-medium mt-0.5">{value}</div>
@@ -364,7 +364,7 @@ export default function AboutSection() {
                         </span>
                         <span className="hidden sm:inline text-[10px] font-mono text-slate-500">{exp.period}</span>
                       </div>
-                      <h3 className="font-display text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight text-white group-hover:text-[#00F0FF] transition-colors duration-200">
+                      <h3 className="font-display text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight text-white group-hover:text-[#00F0FF] group-hover:translate-x-1.5 transition-all duration-300">
                         {exp.role}
                       </h3>
                       <div className="flex items-center gap-1.5 mt-1 text-xs font-mono text-slate-400">
@@ -422,7 +422,7 @@ export default function AboutSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: idx * 0.08 }}
-                className="relative grid grid-cols-1 md:grid-cols-12 gap-6 p-6 sm:p-8 border border-white/8 bg-white/[0.02] hover:border-[#00F0FF]/25 transition-all duration-300"
+                className="relative grid grid-cols-1 md:grid-cols-12 gap-6 p-6 sm:p-8 border border-white/8 bg-white/[0.02] hover:border-[#00F0FF]/30 hover:-translate-y-1 transition-all duration-300"
               >
                 {/* Accent Glow Corner */}
                 <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#00F0FF] to-transparent opacity-60" />
@@ -464,7 +464,7 @@ export default function AboutSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: idx * 0.08 }}
-                className="relative grid grid-cols-1 md:grid-cols-12 gap-6 p-6 sm:p-8 border border-[#00F0FF]/20 bg-[#00F0FF]/[0.02] hover:border-[#00F0FF]/40 transition-all duration-300 shadow-[0_0_40px_rgba(0,240,255,0.04)]"
+                className="relative grid grid-cols-1 md:grid-cols-12 gap-6 p-6 sm:p-8 border border-[#00F0FF]/20 bg-[#00F0FF]/[0.02] hover:border-[#00F0FF]/50 hover:-translate-y-1 transition-all duration-300 shadow-[0_0_40px_rgba(0,240,255,0.04)]"
               >
                 <div className="absolute top-0 left-0 w-1 h-full bg-[#00F0FF]" />
 
