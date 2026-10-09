@@ -61,7 +61,7 @@ export default function SkillsSection() {
   return (
     <section 
       id="skills" 
-      className="relative w-full bg-[#080B11] text-white py-24 sm:py-28 px-6 sm:px-12 border-t border-white/10 overflow-hidden select-none"
+      className="relative w-full bg-[#080B11] text-white pt-24 sm:pt-28 pb-16 sm:pb-20 border-t border-white/10 overflow-hidden select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -69,7 +69,7 @@ export default function SkillsSection() {
       <div className="absolute inset-0 bg-dots-cyber [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_60%,transparent_100%)] opacity-30 pointer-events-none" aria-hidden="true" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-cyan-500/[0.04] blur-[100px] rounded-full pointer-events-none" aria-hidden="true" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 relative z-10">
         
         {/* ── Section Header ─────────────────────────────────────── */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 pb-8 border-b border-white/10">
@@ -160,7 +160,7 @@ export default function SkillsSection() {
         </div>
 
         {/* ── Slide Progress Bar & Indicators ───────────────────────── */}
-        <div className="flex items-center justify-between mt-10 pt-6 border-t border-white/8">
+        <div className="flex items-center justify-between mt-8">
           <div className="flex items-center gap-2">
             {Array.from({ length: totalSlides }).map((_, i) => (
               <button
@@ -184,28 +184,31 @@ export default function SkillsSection() {
           </div>
         </div>
 
-        {/* ── Aesthetic Infinite Ticker Ribbon Underneath ─────────── */}
-        <div className="relative mt-12 overflow-hidden border-t border-b border-white/8 py-4">
-          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#080B11] to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#080B11] to-transparent z-10 pointer-events-none" />
+      </div>
 
-          <div
-            className="flex whitespace-nowrap animate-marquee hover:[animation-play-state:paused] cursor-default"
-            style={{ width: 'max-content', animationDuration: `${SKILLS_LIST.length * 3.5}s`, willChange: 'transform' }}
-          >
-            {[...SKILLS_LIST, ...SKILLS_LIST].map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <div key={`${item.name}-${index}`} className="inline-flex items-center gap-2.5 mx-6 font-mono text-xs uppercase tracking-widest text-slate-400">
-                  <Icon className="w-3.5 h-3.5 text-[#00F0FF]" />
-                  <span className="text-white font-medium">{item.name}</span>
-                  <span className="text-slate-600">&bull;</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+      {/* ── Ticker Ribbon (framer-motion — full-bleed matching AboutSection) ─────── */}
+      <div className="relative w-full mt-14 overflow-hidden border-t border-b border-white/8 bg-[#080B11]/50">
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#080B11] to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#080B11] to-transparent z-10 pointer-events-none" />
 
+        <motion.div
+          className="flex w-max gap-3 py-2.5"
+          animate={{ x: ['0%', '-50%'] }}
+          transition={{ duration: 55, repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
+        >
+          {[...SKILLS_LIST, ...SKILLS_LIST].map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={`${item.name}-${index}`}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white/[0.03] border border-white/8 hover:border-[#00F0FF]/40 hover:bg-[#00F0FF]/[0.04] transition-all duration-300 shrink-0"
+              >
+                <Icon className="w-3.5 h-3.5 text-[#00F0FF] shrink-0" />
+                <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 whitespace-nowrap">{item.name}</span>
+              </div>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );

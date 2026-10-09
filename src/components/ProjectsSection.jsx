@@ -294,7 +294,7 @@ export default function ProjectsSection() {
         style={{ height: `calc(100vh + ${scrollDistance}vw)` }}
       >
         {/* ─── Sticky Viewport — muat pas di bawah Navbar ──────────── */}
-        <div className="sticky top-0 h-screen overflow-hidden bg-[#080B11] flex flex-col pt-14 sm:pt-16 pb-14 relative">
+        <div className="sticky top-0 h-screen overflow-hidden bg-[#080B11] flex flex-col pt-14 sm:pt-16 pb-10 relative">
 
           {/* ── Static Ambient Glow (no animation for perf) ── */}
           <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 h-[300px] bg-gradient-to-r from-transparent via-[#00F0FF]/[0.025] to-blue-500/[0.02] blur-[100px] pointer-events-none" aria-hidden="true" />

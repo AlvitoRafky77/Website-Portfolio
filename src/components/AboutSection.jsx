@@ -13,40 +13,56 @@ import {
 } from 'lucide-react';
 import { personalInfo, educationHistory, experienceData, certificationsData } from '../data/portfolioData';
 
-/* ─── Marquee Strip Component ─────────────────────────────────────────── */
+/* ─── Tech Marquee (Framer Motion — guaranteed speed in all envs) ─────── */
 const techMarqueeItems = [
   'React', 'Vite', 'Tailwind CSS', 'Laravel', 'PHP', 'MySQL',
   'Figma', 'JavaScript', 'Three.js', 'Framer Motion', 'WordPress',
   'Git & GitHub', 'UI/UX Design', 'System Analysis', 'UML Modeling',
-  'REST API', 'Responsive Web', 'Lenis Scroll', 'Node.js', 'Framer Motion',
+  'REST API', 'Responsive Web', 'Lenis Scroll', 'Node.js',
 ];
 
-function MarqueeStrip({ direction = 'left' }) {
-  const items = [...techMarqueeItems, ...techMarqueeItems];
-  const animationClass = direction === 'left' ? 'animate-marquee' : 'animate-marquee-r';
-  // 3.5s per item → kecepatan konsisten berapapun jumlah item
-  const duration = `${techMarqueeItems.length * 3.5}s`;
+const ROW1 = [...techMarqueeItems, ...techMarqueeItems];
+const ROW2 = [...techMarqueeItems].reverse().concat([...techMarqueeItems].reverse());
+
+function MarqueeRow({ items, direction = 'left', duration = 60 }) {
+  const from = direction === 'left' ? '0%' : '-50%';
+  const to   = direction === 'left' ? '-50%' : '0%';
 
   return (
-    <div className="relative overflow-hidden w-full py-3 border-t border-b border-white/8 my-0">
-      {/* Left/Right fade edges */}
-      <div className="absolute left-0 top-0 h-full w-20 z-10 bg-gradient-to-r from-[#080B11] to-transparent pointer-events-none" />
-      <div className="absolute right-0 top-0 h-full w-20 z-10 bg-gradient-to-l from-[#080B11] to-transparent pointer-events-none" />
-
-      <div
-        className={`flex whitespace-nowrap hover:[animation-play-state:paused] cursor-default ${animationClass}`}
-        style={{ width: 'max-content', animationDuration: duration, willChange: 'transform' }}
+    <div className="relative overflow-hidden w-full py-2.5">
+      <div className="absolute left-0 top-0 h-full w-24 z-10 bg-gradient-to-r from-[#080B11] to-transparent pointer-events-none" />
+      <div className="absolute right-0 top-0 h-full w-24 z-10 bg-gradient-to-l from-[#080B11] to-transparent pointer-events-none" />
+      <motion.div
+        className="flex w-max gap-3"
+        animate={{ x: [from, to] }}
+        transition={{ duration, repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
       >
         {items.map((item, i) => (
-          <span key={`${item}-${i}`} className="inline-flex items-center gap-3 mx-6 text-xs font-mono uppercase tracking-widest text-slate-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF] shrink-0 shadow-[0_0_6px_#00F0FF]" />
-            {item}
-          </span>
+          <div
+            key={`${item}-${i}`}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white/[0.03] border border-white/8 hover:border-[#00F0FF]/40 hover:bg-[#00F0FF]/[0.04] transition-all duration-300 shrink-0"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF] shrink-0 shadow-[0_0_5px_#00F0FF]" />
+            <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 whitespace-nowrap">
+              {item}
+            </span>
+          </div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }
+
+function TechMarquee() {
+  return (
+    <div className="border-t border-b border-white/8 bg-[#080B11]/50">
+      <MarqueeRow items={ROW1} direction="left"  duration={55} />
+      <div className="h-px bg-white/8" />
+      <MarqueeRow items={ROW2} direction="right" duration={50} />
+    </div>
+  );
+}
+
 
 /* ─── Main About Section ──────────────────────────────────────────────── */
 const TABS = ['experience', 'education', 'certifications'];
@@ -290,11 +306,9 @@ export default function AboutSection() {
         </div>
       </div>
 
-      {/* ─── Marquee Tech Stack Strip ─────────────────────────────────── */}
-      <div className="border-t border-white/8">
-        <MarqueeStrip direction="left" />
-        <MarqueeStrip direction="right" />
-      </div>
+      {/* ─── Tech Marquee (2 rows, framer-motion) ─────────────────────── */}
+      <TechMarquee />
+
 
       {/* ─── Timeline: Experience / Education / Certifications ────────── */}
       <div className="py-24 sm:py-32 px-6 sm:px-12 max-w-7xl mx-auto">
