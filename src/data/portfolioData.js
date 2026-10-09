@@ -256,22 +256,28 @@ export const projectsData = [
     ]
   },
   {
-    id: "tiktok-live",
-    title: "Website TikTok Live Event",
-    badge: "Campaign Page",
+    id: "jasa-live-host",
+    title: "Website Jasa Live Host TikTok & Shopee",
+    badge: "Agency Commercial Service",
     category: "Landing Page",
-    tagline: "High-Converting Interactive Campaign & Live Streaming Page",
-    client: "Campaign & Creator Project",
-    type: "Event Landing Page",
-    methodology: "Conversion Centric",
-    techStack: ["Modern CSS", "JavaScript", "Interactive Animations", "Responsive UI"],
-    image: "./assets/images/project3.png",
-    overview: "Landing page interaktif bertema visual energetik untuk mendukung siaran langsung TikTok, promosi konten kreator, serta integrasi tombol pemicu partisipasi audiens ke sesi live streaming.",
-    featured: false,
+    tagline: "Landing Page Solusi Live Streaming & Talent Host Profesional untuk Brand E-Commerce",
+    client: "Haluan Digital Agency",
+    type: "Commercial Service Landing Page",
+    methodology: "Conversion Rate Optimization (CRO)",
+    techStack: ["WordPress", "Responsive Web", "Figma Design", "Conversion Flow", "SEO Optimization"],
+    image: "./assets/images/jasahostlive (2).png",
+    gallery: [
+      { url: "./assets/images/jasahostlive (2).png", label: "Hero Banner Layanan: Solusi Live Streaming TikTok Mesin Penjualan" },
+      { url: "./assets/images/jasahostlive (1).png", label: "Studio Profesional Di Balik Layar: Setup Skinfood & Cubbie Official" },
+      { url: "./assets/images/jasahostlive (3).png", label: "Testimonial Klien & Bukti Kepercayaan 200+ Brand Ternama" }
+    ],
+    overview: "Landing page komersial konversi tinggi yang dirancang dan dikembangkan untuk Haluan Digital Agency dalam mempromosikan layanan manajemen Live Host profesional bagi brand di TikTok Shop dan Shopee. Halaman ini menampilkan showcase studio green screen & tematik (Skinfood, Cubbie), testimoni klien terverifikasi (Winland.id, Holo Stereo), serta jejak rekam kerja sama dengan 200+ brand ternama (Somethinc, Emina, Kahf, Glad2Glow, Dr.Leo, Implora, Facetology, Hanasui).",
+    featured: true,
     highlights: [
-      "Estetika visual modern yang energetik dan engaging",
-      "Penempatan tombol Call-To-Action (CTA) berkonversi tinggi",
-      "Desain adaptif optimal di smartphone dan layar desktop"
+      "Presentasi Layanan Terintegrasi: Menampilkan benefit talent host terlatih, peralatan studio komprehensif, dan strategi live shopping",
+      "Galeri Di Balik Layar (Behind the Scenes): Showcase setup studio tematik untuk brand kecantikan (Skinfood) dan home & living (Cubbie)",
+      "Bukti Sosial Kuat: Pameran testimoni klien (Winland, Holo Stereo) dan kredibilitas 200+ brand skala nasional hingga global",
+      "Alur Konversi Cepat: Integrasi tombol Call-To-Action (CTA) langsung terhubung ke konsultasi tim bisnis agency"
     ]
   },
   {
