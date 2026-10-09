@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Download, Sparkles, Send, ArrowDown, Code, CheckCircle2 } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 import ThreeCanvas from './ThreeCanvas';
+import DecryptedText from './DecryptedText';
 
 export default function Hero() {
   return (
@@ -39,21 +40,32 @@ export default function Hero() {
               <span>Certified System Analyst (BNSP) • Open to Work</span>
             </motion.div>
 
-            {/* Main Headline */}
+            {/* Main Headline with React Bits Decrypted Effect */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               className="space-y-2"
             >
-              <p className="text-slate-400 font-medium text-sm sm:text-base tracking-wide">
-                Halo, saya 👋
+              <p className="text-slate-400 font-medium text-sm sm:text-base tracking-wide flex items-center justify-center lg:justify-start gap-2">
+                <span>Halo, saya</span> <span className="inline-block animate-bounce">👋</span>
               </p>
-              <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
-                {personalInfo.name}
+              <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight cursor-default">
+                <DecryptedText 
+                  text={personalInfo.name} 
+                  speed={35} 
+                  maxIterations={14} 
+                  animateOn="hover"
+                  parentClassName="inline-block"
+                />
               </h1>
               <p className="text-xl sm:text-2xl font-semibold bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">
-                {personalInfo.role}
+                <DecryptedText 
+                  text={personalInfo.role} 
+                  speed={45} 
+                  animateOn="view"
+                  parentClassName="inline-block"
+                />
               </p>
             </motion.div>
 

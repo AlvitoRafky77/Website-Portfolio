@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { FigmaIcon } from './Icons';
 import { skillsData } from '../data/portfolioData';
+import SpotlightCard from './SpotlightCard';
 
 const iconMap = {
   Code2: Code2,
@@ -73,7 +74,7 @@ export default function SkillsSection() {
           </div>
         </div>
 
-        {/* Skills Grid */}
+        {/* Skills Grid with Spotlight Effect */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {filteredSkills.map((skill, index) => {
             const IconComponent = iconMap[skill.icon] || Code2;
@@ -84,38 +85,42 @@ export default function SkillsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="p-5 rounded-2xl glass-card group flex flex-col justify-between hover:-translate-y-1 transition-transform"
               >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-colors">
-                      <IconComponent className="w-5 h-5" />
+                <SpotlightCard
+                  className="h-full flex flex-col justify-between p-5"
+                  spotlightColor="rgba(56, 189, 248, 0.15)"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-colors">
+                        <IconComponent className="w-5 h-5" />
+                      </div>
+                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-white/5 text-slate-400 border border-white/5">
+                        {skill.category}
+                      </span>
                     </div>
-                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-white/5 text-slate-400 border border-white/5">
-                      {skill.category}
-                    </span>
+
+                    <h3 className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors mb-1">
+                      {skill.name}
+                    </h3>
                   </div>
 
-                  <h3 className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors mb-1">
-                    {skill.name}
-                  </h3>
-                </div>
-
-                <div className="mt-4 pt-3 border-t border-white/5">
-                  <div className="flex justify-between items-center text-[11px] mb-1.5">
-                    <span className="text-slate-400">Tingkat Kemahiran</span>
-                    <span className="font-semibold text-cyan-400">{skill.level}%</span>
+                  <div className="mt-4 pt-3 border-t border-white/5">
+                    <div className="flex justify-between items-center text-[11px] mb-1.5">
+                      <span className="text-slate-400">Tingkat Kemahiran</span>
+                      <span className="font-semibold text-cyan-400">{skill.level}%</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        className="h-full bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-full"
+                      />
+                    </div>
                   </div>
-                  <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.level}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.8, delay: 0.2 }}
-                      className="h-full bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-full"
-                    />
-                  </div>
-                </div>
+                </SpotlightCard>
               </motion.div>
             );
           })}
