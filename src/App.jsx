@@ -20,6 +20,8 @@ export default function App() {
       touchMultiplier: 1.5,
     });
 
+    window.__lenis = lenis;
+
     let animationFrameId;
     function raf(time) {
       lenis.raf(time);
@@ -30,6 +32,7 @@ export default function App() {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      delete window.__lenis;
       lenis.destroy();
     };
   }, []);

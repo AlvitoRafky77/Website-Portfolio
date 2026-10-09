@@ -30,11 +30,11 @@ const iconMap = {
 
 export default function SkillsSection() {
   const [activeCategory, setActiveCategory] = useState('Semua');
-  const categories = ['Semua', 'Frontend', 'Design', 'Backend', 'Tools'];
+  const categories = ['Semua', 'Backend', 'Frontend', 'Design', 'Analyst', 'Tools'];
 
   const filteredSkills = activeCategory === 'Semua' 
     ? skillsData 
-    : skillsData.filter(s => s.category === activeCategory || (activeCategory === 'Tools' && s.category === 'CMS'));
+    : skillsData.filter(s => s.category === activeCategory);
 
   return (
     <section id="skills" className="py-24 relative overflow-hidden">
@@ -53,7 +53,7 @@ export default function SkillsSection() {
             Keahlian & <span className="text-gradient-cyan">Teknologi Andal</span>
           </h2>
           <p className="text-slate-400 text-sm sm:text-base">
-            Perangkat lunak dan bahasa pemrograman yang saya gunakan untuk mewujudkan ide menjadi kenyataan.
+            Perangkat lunak, bahasa pemrograman, dan metodologi yang saya gunakan untuk mewujudkan produk digital nyata.
           </p>
 
           {/* Category Filter Pills */}
@@ -74,8 +74,8 @@ export default function SkillsSection() {
           </div>
         </div>
 
-        {/* Skills Grid with Spotlight Effect */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Skills Grid with Modern Spotlight Cards (No Percentages) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {filteredSkills.map((skill, index) => {
             const IconComponent = iconMap[skill.icon] || Code2;
             return (
@@ -87,38 +87,39 @@ export default function SkillsSection() {
                 transition={{ duration: 0.3, delay: index * 0.05 }}
               >
                 <SpotlightCard
-                  className="h-full flex flex-col justify-between p-5"
-                  spotlightColor="rgba(56, 189, 248, 0.15)"
+                  className="h-full flex flex-col justify-between p-6 border-slate-800/80 hover:border-cyan-500/30 transition-all"
+                  spotlightColor="rgba(56, 189, 248, 0.14)"
                 >
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-colors">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="w-11 h-11 rounded-2xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-colors shadow-inner">
                         <IconComponent className="w-5 h-5" />
                       </div>
-                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-white/5 text-slate-400 border border-white/5">
+                      <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-800/80 text-cyan-300 border border-cyan-500/20">
                         {skill.category}
                       </span>
                     </div>
 
-                    <h3 className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors mb-1">
-                      {skill.name}
-                    </h3>
+                    <div>
+                      <h3 className="text-base font-bold text-white group-hover:text-cyan-300 transition-colors mb-1.5">
+                        {skill.name}
+                      </h3>
+                      <p className="text-xs text-slate-400 leading-relaxed">
+                        {skill.description}
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-white/5">
-                    <div className="flex justify-between items-center text-[11px] mb-1.5">
-                      <span className="text-slate-400">Tingkat Kemahiran</span>
-                      <span className="font-semibold text-cyan-400">{skill.level}%</span>
-                    </div>
-                    <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="h-full bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-full"
-                      />
-                    </div>
+                  {/* Skill Competency Tags */}
+                  <div className="mt-5 pt-3.5 border-t border-white/5 flex flex-wrap gap-1.5">
+                    {skill.tags?.map((tag, tIdx) => (
+                      <span 
+                        key={tIdx} 
+                        className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-white/[0.04] text-slate-300 border border-white/5"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </SpotlightCard>
               </motion.div>

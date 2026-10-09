@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FolderGit2, 
@@ -19,6 +19,28 @@ export default function ProjectsSection() {
   const [activeCategory, setActiveCategory] = useState('Semua');
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeModalImage, setActiveModalImage] = useState(null);
+
+  // Kunci scroll background (termasuk Lenis) saat modal terbuka
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+      if (window.__lenis) {
+        window.__lenis.stop();
+      }
+    } else {
+      document.body.style.overflow = '';
+      if (window.__lenis) {
+        window.__lenis.start();
+      }
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      if (window.__lenis) {
+        window.__lenis.start();
+      }
+    };
+  }, [selectedProject]);
 
   const handleOpenModal = (project) => {
     setSelectedProject(project);
@@ -182,14 +204,14 @@ export default function ProjectsSection() {
       {/* Project Detail Modal */}
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-hidden">
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedProject(null)}
-              className="fixed inset-0 bg-slate-950/80 backdrop-blur-md"
+              className="fixed inset-0 bg-slate-950/85 backdrop-blur-md"
             />
 
             {/* Modal Dialog Content */}
@@ -198,10 +220,11 @@ export default function ProjectsSection() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-3xl bg-slate-900 border border-white/15 rounded-3xl shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col"
+              data-lenis-prevent
+              className="relative w-full max-w-3xl bg-slate-900 border border-white/15 rounded-3xl shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col overscroll-contain"
             >
               {/* Modal Header */}
-              <div className="p-5 border-b border-white/10 flex items-center justify-between bg-slate-900/80 backdrop-blur-md sticky top-0 z-10">
+              <div className="p-5 border-b border-white/10 flex items-center justify-between bg-slate-900/90 backdrop-blur-md sticky top-0 z-20">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
                     {selectedProject.category}

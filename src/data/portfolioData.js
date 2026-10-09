@@ -22,15 +22,62 @@ export const personalInfo = {
 };
 
 export const skillsData = [
-  { name: "Laravel & PHP", category: "Backend", level: 92, icon: "Database" },
-  { name: "MySQL & Database Design", category: "Backend", level: 90, icon: "Database" },
-  { name: "React & JavaScript", category: "Frontend", level: 88, icon: "Code2" },
-  { name: "UI/UX & Figma", category: "Design", level: 92, icon: "Figma" },
-  { name: "System Analysis & UML", category: "Analyst", level: 95, icon: "Cpu" },
-  { name: "Tailwind CSS & HTML5", category: "Frontend", level: 94, icon: "Palette" },
-  { name: "REST API & Payment Gateway", category: "Backend", level: 88, icon: "Layout" },
-  { name: "WordPress & Web Hosting", category: "CMS", level: 85, icon: "Globe" },
-  { name: "Git & Version Control", category: "Tools", level: 88, icon: "GitBranch" },
+  { 
+    name: "Laravel & PHP", 
+    category: "Backend", 
+    description: "Arsitektur MVC, Eloquent ORM, REST API, integrasi Midtrans / Payment Gateway, & otentikasi aman.",
+    icon: "Database", 
+    tags: ["MVC", "REST API", "Payment Gateway"] 
+  },
+  { 
+    name: "MySQL & Relational Database", 
+    category: "Backend", 
+    description: "Perancangan skema relasional, normalisasi data, indexing kueri, & integritas data transaksi.",
+    icon: "Database", 
+    tags: ["ERD", "Query Optimization", "Schema Design"] 
+  },
+  { 
+    name: "React & Modern JavaScript", 
+    category: "Frontend", 
+    description: "Komponen interaktif, state management, hooks, integrasi animasi UI modern, & Vite.",
+    icon: "Code2", 
+    tags: ["React 19", "ES6+", "Vite", "SPA"] 
+  },
+  { 
+    name: "UI/UX & Figma Prototyping", 
+    category: "Design", 
+    description: "Pembuatan wireframe, design system, interactive prototyping, & user flow berbasis riset pengguna.",
+    icon: "Figma", 
+    tags: ["Design System", "Wireframing", "User Flow"] 
+  },
+  { 
+    name: "System Analysis & UML Modeling", 
+    category: "Analyst", 
+    description: "Analisis kebutuhan fungsional/non-fungsional, diagram Use Case, Activity, Sequence, & metodologi Waterfall.",
+    icon: "Cpu", 
+    tags: ["BNSP Certified", "UML", "SDLC", "Business Process"] 
+  },
+  { 
+    name: "Tailwind CSS & Modern Styling", 
+    category: "Frontend", 
+    description: "Desain web responsif, mobile-first design, kustomisasi micro-animations, & utility architecture.",
+    icon: "Palette", 
+    tags: ["Responsive", "Mobile-First", "Animations"] 
+  },
+  { 
+    name: "WordPress & CMS Deployment", 
+    category: "Tools", 
+    description: "Pengelolaan CMS bisnis, setup domain & web hosting cPanel, serta pemeliharaan teknis sistem.",
+    icon: "Globe", 
+    tags: ["cPanel", "CMS Management", "Hosting"] 
+  },
+  { 
+    name: "Git & Collaborative Workflow", 
+    category: "Tools", 
+    description: "Version control sistematis, branching, GitHub Pages deployment, & manajemen repositori proyek.",
+    icon: "GitBranch", 
+    tags: ["Version Control", "GitHub", "CI/CD Deployment"] 
+  },
 ];
 
 export const experienceData = [
